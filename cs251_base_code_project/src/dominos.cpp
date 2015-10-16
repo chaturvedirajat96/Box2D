@@ -187,7 +187,7 @@ namespace cs251
       fd2->restitution = 0.f;
       fd2->shape = new b2PolygonShape;
       b2PolygonShape bs2;
-      bs2.SetAsBox(0.2,2, b2Vec2(2.0f,0.f), 0);
+      bs2.SetAsBox(0.2,5, b2Vec2(2.0f,0.f), 0);
       fd2->shape = &bs2;
       b2FixtureDef *fd3 = new b2FixtureDef;
       fd3->density = 10.0;
@@ -401,8 +401,8 @@ namespace cs251
 
 		vertices[0].Set(-35.0f,30.0f);
 		vertices[1].Set(-34.2f,30.7f);
-		vertices[2].Set(-38.05f,35.35f);
-		vertices[3].Set(-39.5f,35.5f);
+		vertices[2].Set(-38.22f,35.8f);
+		vertices[3].Set(-39.35f,35.f);
 
 		poly8.Set(vertices,4);
 		bd.type = b2_dynamicBody;
@@ -417,12 +417,12 @@ namespace cs251
       }
 
 	//Left Valve part 3
-      {
+      
       b2PolygonShape shape;
-      shape.SetAsBox(5.2f, 0.4f);
+      shape.SetAsBox(6.3f, 0.4f);
 
       b2BodyDef bd;
-      bd.position.Set(-34.0f, 38.0f);
+      bd.position.Set(-34.0f, 38.75f);
       bd.type = b2_dynamicBody;
       b2Body* body = m_world->CreateBody(&bd);
       b2FixtureDef *fd = new b2FixtureDef;
@@ -434,7 +434,7 @@ namespace cs251
       b2PolygonShape shape2;
       shape2.SetAsBox(0.0f, 0.0f);
       b2BodyDef bd2;
-      bd2.position.Set(-35.0f, 38.0f);
+      bd2.position.Set(-35.0f, 38.75f);
       b2Body* body2 = m_world->CreateBody(&bd2);
 
       b2RevoluteJointDef jointDef;
@@ -444,12 +444,11 @@ namespace cs251
       jointDef.localAnchorB.Set(0,0);
       jointDef.collideConnected = false;
 
-      body->SetTransform( body->GetPosition(), 0.5 );
+      body->SetTransform( body->GetPosition(), 0.6 );
 
       m_world->CreateJoint(&jointDef);
       
-
-    }
+    
 
 	//Joints of Valve Left     
 	b2DistanceJointDef jointDef1;
