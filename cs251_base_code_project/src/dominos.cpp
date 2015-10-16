@@ -419,7 +419,7 @@ namespace cs251
 	//Left Valve part 3
       {
       b2PolygonShape shape;
-      shape.SetAsBox(5.2f, 0.2f);
+      shape.SetAsBox(5.2f, 0.4f);
 
       b2BodyDef bd;
       bd.position.Set(-34.0f, 38.0f);
