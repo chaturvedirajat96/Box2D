@@ -486,7 +486,6 @@ namespace cs251
 	
 
 //both side stand
-	//Left stand
     {
       	b2PolygonShape poly;
       	b2BodyDef bd;
@@ -507,7 +506,6 @@ namespace cs251
       	
 
     }
-	//Right stand
     {
       	b2PolygonShape poly1;
       	b2BodyDef bd1;
@@ -530,7 +528,6 @@ namespace cs251
     }
  
 
-	//Rotating triangle
     {
       b2BodyDef *bd = new b2BodyDef;
       bd->type = b2_kinematicBody;
