@@ -179,7 +179,7 @@ namespace cs251
       fd1->restitution = 0.f;
       fd1->shape = new b2PolygonShape;
       b2PolygonShape bs1;
-      bs1.SetAsBox(2,0.2, b2Vec2(0.f,-1.9f), 0);
+      bs1.SetAsBox(2.5,1, b2Vec2(0.f,-1.9f), 0.85);
       fd1->shape = &bs1;
       b2FixtureDef *fd2 = new b2FixtureDef;
       fd2->density = 10.0;
@@ -187,7 +187,7 @@ namespace cs251
       fd2->restitution = 0.f;
       fd2->shape = new b2PolygonShape;
       b2PolygonShape bs2;
-      bs2.SetAsBox(0.2,5, b2Vec2(2.0f,0.f), 0);
+      bs2.SetAsBox(0.7,4, b2Vec2(-3.8f,1.7f), 0.85);
       fd2->shape = &bs2;
       b2FixtureDef *fd3 = new b2FixtureDef;
       fd3->density = 10.0;
@@ -195,7 +195,7 @@ namespace cs251
       fd3->restitution = 0.f;
       fd3->shape = new b2PolygonShape;
       b2PolygonShape bs3;
-      bs3.SetAsBox(0.2,2, b2Vec2(-2.0f,0.f), 0);
+      bs3.SetAsBox(6,0.5, b2Vec2(-3.5f,9.f), 0.85);
       fd3->shape = &bs3;
 
       b2Body* box1 = m_world->CreateBody(bd);
@@ -203,7 +203,21 @@ namespace cs251
       box1->CreateFixture(fd2);
       box1->CreateFixture(fd3);
       box1->SetGravityScale(0);
-      box1->SetAngularVelocity(0.1);
+
+       b2PolygonShape shape2;
+                shape2.SetAsBox(0.2f, 1.5f);
+                b2BodyDef bd2;
+                bd2.position.Set(-3.5f,9.f);
+                b2Body* body2 = m_world->CreateBody(&bd2);
+
+      b2RevoluteJointDef jointDef;
+      jointDef.bodyA = box1;
+      jointDef.bodyB = body2;
+      jointDef.localAnchorA.Set(0,0);
+      jointDef.localAnchorB.Set(0,0);
+      jointDef.collideConnected = false;
+      m_world->CreateJoint(&jointDef);
+      //box1->SetAngularVelocity(0.1);
 /*
       //The bar
       bd->position.Set(10,15);
@@ -239,7 +253,7 @@ namespace cs251
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_dynamicBody;
-      ballbd.position.Set(-5.0f, 42.0f);
+      ballbd.position.Set(28.5f, 42.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -442,7 +456,7 @@ namespace cs251
       jointDef.bodyB = body2;
       jointDef.localAnchorA.Set(0,0);
       jointDef.localAnchorB.Set(0,0);
-      jointDef.collideConnected = false;
+      jointDef.collideConnected = true;
 
       body->SetTransform( body->GetPosition(), 0.6 );
 
@@ -483,6 +497,72 @@ namespace cs251
     }
     
 	
+
+//faltu cross in right
+{
+            //group index -1 here,the wont collide with themslevs
+            //change groupindex of other objects
+            //this is the new rotating wind mill
+
+
+            b2PolygonShape shape,shape3;
+            shape.SetAsBox(1.6f, 0.2f);
+            shape3.SetAsBox(0.2f,1.6f);
+            for(int i=0; i<1; i++)
+            {
+                b2BodyDef bd;
+                bd.position.Set(28.5f, 25.7f-2.5f*i);
+                if(i%2==0)
+                {
+                    bd.angle=3.14/2-0.614;
+                }
+                else
+                {
+                    bd.angle=3.14/2+0.614;
+                }
+                bd.type=b2_dynamicBody;
+                b2Body* body = m_world->CreateBody(&bd);
+                b2FixtureDef *fd = new b2FixtureDef;
+                fd->density = 1.f;
+                fd->restitution = 0.0f;
+                fd->filter.groupIndex = -1;
+                fd->shape = new b2PolygonShape;
+                fd->shape = &shape;
+              
+                b2FixtureDef *fd1 = new b2FixtureDef;
+                fd1->density = 1.f;
+                  fd1->restitution = 1.0f;
+                fd1->filter.groupIndex = -1;
+                fd1->shape = new b2PolygonShape;
+                fd1->shape = &shape3;
+                body->CreateFixture(fd);
+                body->CreateFixture(fd1);
+                //body->SetAngularVelocity(3);
+
+
+
+                //useless body
+                b2PolygonShape shape2;
+                shape2.SetAsBox(0.2f, 1.5f);
+                b2BodyDef bd2;
+                bd2.position.Set(28.5f, 25.7f-2.5f*i);
+                b2Body* body2 = m_world->CreateBody(&bd2);
+
+                //joint is defined here
+                b2RevoluteJointDef jointDef;
+                jointDef.bodyA = body;
+                jointDef.bodyB = body2;
+                jointDef.localAnchorA.Set(1,0);
+                jointDef.localAnchorB.Set(1,0);
+                jointDef.collideConnected = false;
+                m_world->CreateJoint(&jointDef);
+            }
+
+
+        }
+
+
+
 
 //both side stand
 	//Left stand
@@ -533,7 +613,7 @@ namespace cs251
     {
       b2BodyDef *bd = new b2BodyDef;
       bd->type = b2_kinematicBody;
-      bd->position.Set(-28.0f,38.1547f);
+      bd->position.Set(-29.0f,40.1547f);
       bd->fixedRotation = true;
        //The open box
       b2FixtureDef *fd1 = new b2FixtureDef;
