@@ -264,11 +264,11 @@ namespace cs251
       b2Body* b2;
       {
 	b2PolygonShape shape;
-	shape.SetAsBox(7.0f, 3.25f);
+	shape.SetAsBox(9.0f, 3.25f);
 
 	b2BodyDef bd;
 	bd.type=b2_dynamicBody;
-	bd.position.Set(-28.0f, 21.0f);
+	bd.position.Set(-28.0f, 18.0f);
 	b2 = m_world->CreateBody(&bd);
 	b2->CreateFixture(&shape, 10.0f);
       }
@@ -277,7 +277,7 @@ namespace cs251
       b2Body* b4;
       {
 	b2PolygonShape shape;
-	shape.SetAsBox(4.0f, 4.0f);
+	shape.SetAsBox(3.0f, 3.0f);
 
 	b2BodyDef bd;
 	bd.type = b2_kinematicBody;
@@ -296,8 +296,8 @@ namespace cs251
 	b2Vec2 anchorA;
 	b2Vec2 anchorB;
 
-	anchorA.Set(-28.0f,21.0f);
-	anchorB.Set(-32.0f,6.0f);
+	anchorA.Set(-28.0f,18.0f);
+	anchorB.Set(-31.0f,5.0f);
 
 	jointDef.Initialize(b2, b4, anchorA, anchorB);
 
@@ -324,7 +324,7 @@ namespace cs251
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(-30.0f, 30.0f);
+      ballbd.position.Set(30.0f, 30.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -340,7 +340,7 @@ namespace cs251
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(-17.0f, 20.0f);
+      ballbd.position.Set(17.0f, 20.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -356,7 +356,7 @@ namespace cs251
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(-11.0f, 20.0f);
+      ballbd.position.Set(11.0f, 20.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -372,7 +372,7 @@ namespace cs251
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(-8.0f, 20.0f);
+      ballbd.position.Set(8.0f, 20.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -386,12 +386,12 @@ namespace cs251
       	b2PolygonShape poly7;
       	b2BodyDef bd;
       	b2Vec2 vertices[6];
-      	vertices[0].Set(-35.0f,26.5f);		//done
-      	vertices[1].Set(-31.0f,30.0f);		//done
-      	vertices[2].Set(-31.9f,31.2f);		//done
-      	vertices[3].Set(-34.2f,30.7f);
-      	vertices[4].Set(-35.0f,30.0f);
-      	vertices[5].Set(-35.7f,27.5f);		
+      	vertices[0].Set(-35.0f,24.5f);		//done
+      	vertices[1].Set(-31.0f,28.0f);		//done
+      	vertices[2].Set(-31.9f,29.2f);		//done
+      	vertices[3].Set(-34.2f,28.7f);
+      	vertices[4].Set(-35.0f,28.0f);
+      	vertices[5].Set(-35.7f,25.5f);		
       	
       	poly7.Set(vertices, 6);
       	bd.type=b2_dynamicBody;
@@ -413,10 +413,10 @@ namespace cs251
 		b2BodyDef bd;
 		b2Vec2 vertices[4];
 
-		vertices[0].Set(-35.0f,30.0f);
-		vertices[1].Set(-34.2f,30.7f);
-		vertices[2].Set(-38.22f,35.8f);
-		vertices[3].Set(-39.35f,35.f);
+		vertices[0].Set(-35.0f,28.0f);
+		vertices[1].Set(-34.2f,28.7f);
+		vertices[2].Set(-40.22f,35.8f);
+		vertices[3].Set(-41.35f,35.f);
 
 		poly8.Set(vertices,4);
 		bd.type = b2_dynamicBody;
@@ -436,11 +436,12 @@ namespace cs251
       shape.SetAsBox(6.3f, 0.4f);
 
       b2BodyDef bd;
-      bd.position.Set(-34.0f, 38.75f);
+      bd.position.Set(-36.0f, 38.75f);
       bd.type = b2_dynamicBody;
       b2Body* body = m_world->CreateBody(&bd);
       b2FixtureDef *fd = new b2FixtureDef;
-      fd->density = 1.f;
+      fd->density = 100.f;
+      fd->restitution=0.0f;
       fd->shape = new b2PolygonShape;
       fd->shape = &shape;
       body->CreateFixture(fd);
@@ -448,13 +449,13 @@ namespace cs251
       b2PolygonShape shape2;
       shape2.SetAsBox(0.0f, 0.0f);
       b2BodyDef bd2;
-      bd2.position.Set(-35.0f, 38.75f);
+      bd2.position.Set(-37.0f, 38.75f);
       b2Body* body2 = m_world->CreateBody(&bd2);
 
       b2RevoluteJointDef jointDef;
       jointDef.bodyA = body;
       jointDef.bodyB = body2;
-      jointDef.localAnchorA.Set(0,0);
+      jointDef.localAnchorA.Set(-2 ,0);
       jointDef.localAnchorB.Set(0,0);
       jointDef.collideConnected = true;
 
@@ -467,24 +468,36 @@ namespace cs251
 	//Joints of Valve Left     
 	b2DistanceJointDef jointDef1;
 	b2DistanceJointDef jointDef2;
-  	
+  	b2DistanceJointDef jointDef3;
+	//b2DistanceJointDef jointDef4;
 
 	b2Vec2 anchorA;
 	b2Vec2 anchorB;
 	b2Vec2 anchorC;
 	b2Vec2 anchorD;
-	
+	b2Vec2 anchor5;
+	b2Vec2 anchor6;
+	//b2Vec2 anchor7;
+	//b2Vec2 anchor8;
 
-	anchorA.Set(-34.2f,30.7f);
-	anchorB.Set(-34.2f,30.7f);
-	anchorC.Set(-35.0f,30.0f);
-	anchorD.Set(-35.0f,30.0f);
+	anchorA.Set(-34.2f,28.7f);
+	anchorB.Set(-34.2f,28.7f);
+	anchorC.Set(-35.0f,28.0f);
+	anchorD.Set(-35.0f,28.0f);
+	anchor5.Set(-41.35f,35.f);
+	anchor6.Set(-41.35f,35.f);
+	//anchor7.Set(-38.22f,35.8f);
+	//anchor8.Set(-38.22f,35.8f);
   	
 	jointDef1.Initialize(bp1, bp2, anchorA, anchorB);
 	jointDef2.Initialize(bp1, bp2, anchorC, anchorD);
+	jointDef3.Initialize(bp2,body,anchor5,anchor6);
+	//jointDef4.Initialize(bp2,body,anchor7,anchor8);
   	
 	jointDef1.collideConnected = true;
 	jointDef2.collideConnected = true;
+	jointDef3.collideConnected = true;
+	//jointDef4.collideConnected = true;
   	
      //b2RevoluteJointDef jd;
      // b2Vec2 anchor;
@@ -492,7 +505,141 @@ namespace cs251
       //jd.Initialize(b2, b4,anchor);
     m_world->CreateJoint(&jointDef1);
     m_world->CreateJoint(&jointDef2);
+    m_world->CreateJoint(&jointDef3);
+    //m_world->CreateJoint(&jointDef4);
+      
+    }
     
+    
+//valve system right side
+    {
+	//right Valve part 1
+      b2Body* rva;
+	{
+      	b2PolygonShape poly7;
+      	b2BodyDef bd;
+      	b2Vec2 vertices[6];
+      	vertices[0].Set(-21.0f,24.5f);		//done
+      	vertices[1].Set(-25.0f,28.0f);		//done
+      	vertices[2].Set(-24.1f,29.2f);		//done
+      	vertices[3].Set(-21.8f,28.7f);
+      	vertices[4].Set(-21.0f,28.0f);
+      	vertices[5].Set(-20.3f,25.5f);		
+      	
+      	poly7.Set(vertices, 6);
+      	bd.type=b2_dynamicBody;
+
+      	rva = m_world->CreateBody(&bd);
+      	b2FixtureDef *fd = new b2FixtureDef;
+      	fd->density = 1.f;
+      	fd->shape = new b2PolygonShape;
+      	fd->shape = &poly7;
+      	rva->CreateFixture(fd);
+        rva->SetGravityScale(0);
+
+    }
+
+	//right Valve part 2
+      b2Body* rvb;
+      {
+		b2PolygonShape poly8;
+		b2BodyDef bd;
+		b2Vec2 vertices[4];
+
+		vertices[0].Set(-21.0f,28.0f);
+		vertices[1].Set(-21.8f,28.7f);
+		vertices[2].Set(-15.78f,35.8f);
+		vertices[3].Set(-14.65f,35.f);
+
+		poly8.Set(vertices,4);
+		bd.type = b2_dynamicBody;
+
+		rvb = m_world->CreateBody(&bd);
+		b2FixtureDef *fd = new b2FixtureDef;
+      	fd->density = 1.f;
+      	fd->shape = new b2PolygonShape;
+      	fd->shape = &poly8;
+		rvb->CreateFixture(fd);
+	    rvb->SetGravityScale(0);
+      }
+
+	//right Valve part 3
+      
+      b2PolygonShape shape;
+      shape.SetAsBox(6.3f, 0.4f);
+
+      b2BodyDef bd;
+      bd.position.Set(-20.0f, 38.75f);
+      bd.type = b2_dynamicBody;
+      b2Body* body = m_world->CreateBody(&bd);
+      b2FixtureDef *fd = new b2FixtureDef;
+      fd->density = 100.f;
+      fd->restitution=0.0f;
+      fd->shape = new b2PolygonShape;
+      fd->shape = &shape;
+      body->CreateFixture(fd);
+
+      b2PolygonShape shape2;
+      shape2.SetAsBox(0.0f, 0.0f);
+      b2BodyDef bd2;
+      bd2.position.Set(-19.0f, 38.75f);
+      b2Body* body2 = m_world->CreateBody(&bd2);
+
+      b2RevoluteJointDef jointDef;
+      jointDef.bodyA = body;
+      jointDef.bodyB = body2;
+      jointDef.localAnchorA.Set(2 ,0);
+      jointDef.localAnchorB.Set(0,0);
+      jointDef.collideConnected = true;
+
+      body->SetTransform( body->GetPosition(), -0.6 );
+
+      m_world->CreateJoint(&jointDef);
+      
+    
+
+	//Joints of Valve Left     
+	b2DistanceJointDef jointDef1;
+	b2DistanceJointDef jointDef2;
+  	b2DistanceJointDef jointDef3;
+	//b2DistanceJointDef jointDef4;
+
+	b2Vec2 anchorA;
+	b2Vec2 anchorB;
+	b2Vec2 anchorC;
+	b2Vec2 anchorD;
+	b2Vec2 anchor5;
+	b2Vec2 anchor6;
+	//b2Vec2 anchor7;
+	//b2Vec2 anchor8;
+
+	anchorA.Set(-21.8f,28.7f);
+	anchorB.Set(-21.8f,28.7f);
+	anchorC.Set(-21.0f,28.0f);
+	anchorD.Set(-21.0f,28.0f);
+	anchor5.Set(-14.65f,35.f);
+	anchor6.Set(-14.65f,35.f);
+	//anchor7.Set(-38.22f,35.8f);
+	//anchor8.Set(-38.22f,35.8f);
+  	
+	jointDef1.Initialize(rva, rvb, anchorA, anchorB);
+	jointDef2.Initialize(rva, rvb, anchorC, anchorD);
+	jointDef3.Initialize(rvb,body,anchor5,anchor6);
+	//jointDef4.Initialize(bp2,body,anchor7,anchor8);
+  	
+	jointDef1.collideConnected = true;
+	jointDef2.collideConnected = true;
+	jointDef3.collideConnected = true;
+	//jointDef4.collideConnected = true;
+  	
+     //b2RevoluteJointDef jd;
+     // b2Vec2 anchor;
+     // anchor.Set(-28.0f, 35.5f);
+      //jd.Initialize(b2, b4,anchor);
+    m_world->CreateJoint(&jointDef1);
+    m_world->CreateJoint(&jointDef2);
+    m_world->CreateJoint(&jointDef3);
+    //m_world->CreateJoint(&jointDef4);
       
     }
     
@@ -570,10 +717,10 @@ namespace cs251
       	b2PolygonShape poly;
       	b2BodyDef bd;
       	b2Vec2 vertices[4];
-      	vertices[0].Set(-36.0f,7.5f);
-      	vertices[1].Set(-35.0f,7.5f);
-      	vertices[2].Set(-35.0f,26.5f);
-      	vertices[3].Set(-36.0f,28.0f);
+      	vertices[0].Set(-38.0f,7.5f);
+      	vertices[1].Set(-37.0f,7.5f);
+      	vertices[2].Set(-37.0f,27.0f);
+      	vertices[3].Set(-38.0f,28.5f);
       	poly.Set(vertices, 4);
       	bd.type=b2_staticBody;
 
@@ -591,10 +738,10 @@ namespace cs251
       	b2PolygonShape poly1;
       	b2BodyDef bd1;
       	b2Vec2 vertices[4];
-      	vertices[0].Set(-20.0f,7.5f);
-      	vertices[1].Set(-21.0f,7.5f);
-      	vertices[2].Set(-21.0f,26.5f);
-      	vertices[3].Set(-20.0f,28.5f);
+      	vertices[0].Set(-18.0f,7.5f);
+      	vertices[1].Set(-19.0f,7.5f);
+      	vertices[2].Set(-19.0f,27.0f);
+      	vertices[3].Set(-18.0f,28.5f);
       	poly1.Set(vertices, 4);
       	bd1.type=b2_staticBody;
 
@@ -613,36 +760,36 @@ namespace cs251
     {
       b2BodyDef *bd = new b2BodyDef;
       bd->type = b2_kinematicBody;
-      bd->position.Set(-29.0f,40.1547f);
+      bd->position.Set(-28.0f,39.1547f);
       bd->fixedRotation = true;
        //The open box
       b2FixtureDef *fd1 = new b2FixtureDef;
-      fd1->density = 10000000.0;
+      fd1->density = 1.0;
       fd1->friction = 1.0;
       fd1->restitution = 0.f;
       fd1->shape = new b2PolygonShape;
 
       b2PolygonShape bs1;
-      bs1.SetAsBox(2.5,0.2, b2Vec2(0.f,-1.75f), 0);
+      bs1.SetAsBox(4.2,0.2, b2Vec2(0.0f,-2.1f), 0);
 
 
 
       fd1->shape = &bs1;
       b2FixtureDef *fd2 = new b2FixtureDef;
-      fd2->density = 10000000.0;
+      fd2->density = 1.0;
       fd2->friction = 0.0;
-      fd2->restitution = 1.f;
+      fd2->restitution = 0.f;
       fd2->shape = new b2PolygonShape;
       b2PolygonShape bs2;
-      bs2.SetAsBox(0.2,2.5, b2Vec2(1.0f,0.f), 0.523598775f);
+      bs2.SetAsBox(0.2,2.7, b2Vec2(2.6f,0.f), 0.643501109f);
       fd2->shape = &bs2;
       b2FixtureDef *fd3 = new b2FixtureDef;
-      fd3->density = 10000000.0;
+      fd3->density = 1.0;
       fd3->friction = 0.0;
-      fd3->restitution = 1.f;
+      fd3->restitution = 0.f;
       fd3->shape = new b2PolygonShape;
       b2PolygonShape bs3;
-      bs3.SetAsBox(0.2,2.5, b2Vec2(-1.0f,0.f), -0.523598775f);
+      bs3.SetAsBox(0.2,2.7, b2Vec2(-2.6f,0.f), -0.643501109f);
       fd3->shape = &bs3;
 
 
@@ -787,10 +934,10 @@ namespace cs251
     	b2PolygonShape poly1;
       	b2BodyDef bd1;
       	b2Vec2 vertices[4];
-      	vertices[0].Set(-31.0f,30.0f);
-      	vertices[1].Set(-25.0f,30.0f);
-      	vertices[2].Set(-23.0f,34.0f);
-      	vertices[3].Set(-33.0f,34.0f);
+      	vertices[0].Set(-33.0f,29.0f);
+      	vertices[1].Set(-23.0f,29.0f);
+      	vertices[2].Set(-21.0f,33.0f);
+      	vertices[3].Set(-35.0f,33.0f);
       	poly1.Set(vertices, 4);
       	bd1.type=b2_staticBody;
 
