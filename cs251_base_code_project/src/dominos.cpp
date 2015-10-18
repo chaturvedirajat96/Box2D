@@ -25,6 +25,7 @@
 
 #include "cs251_base.hpp"
 #include "render.hpp"
+#include <cstdlib>
 
 #ifdef __APPLE__
 	#include <GLUT/glut.h>
@@ -239,23 +240,36 @@ namespace cs251
 
     //The revolving horizontal platform
   
-    //The heavy sphere on the platform
+    //random air particles
     
+//The train of small spheres
     {
-      b2Body* sbody;
+      b2Body* spherebody;
+
       b2CircleShape circle;
-      circle.m_radius = 1.0;
+      circle.m_radius = 0.2;
 
       b2FixtureDef ballfd;
       ballfd.shape = &circle;
-      ballfd.density = 50.0f;
+      ballfd.density = 1.0f;
       ballfd.friction = 0.0f;
-      ballfd.restitution = 0.0f;
-      b2BodyDef ballbd;
-      ballbd.type = b2_dynamicBody;
-      ballbd.position.Set(28.5f, 42.0f);
-      sbody = m_world->CreateBody(&ballbd);
-      sbody->CreateFixture(&ballfd);
+      ballfd.restitution = 1.0f;
+
+      for (int i = 0; i < 5; ++i)
+  {
+    for(int j=0;j<5;j++)
+    {
+      int r1=rand() % 5 +1;
+      int r2=rand() % 3 ;
+    b2BodyDef ballbd;
+    ballbd.type = b2_dynamicBody;
+    ballbd.position.Set(-30.5f + i*1.0, 22.0f+j*j*0.5);
+    spherebody = m_world->CreateBody(&ballbd);
+    spherebody->CreateFixture(&ballfd);
+    spherebody->SetLinearVelocity(b2Vec2(r1,0));
+      spherebody->SetGravityScale(-r2);
+  }
+  }
     }
 
     //The main piston
@@ -266,11 +280,21 @@ namespace cs251
 	b2PolygonShape shape;
 	shape.SetAsBox(9.0f, 3.25f);
 
+      
 	b2BodyDef bd;
 	bd.type=b2_dynamicBody;
 	bd.position.Set(-28.0f, 18.0f);
 	b2 = m_world->CreateBody(&bd);
-	b2->CreateFixture(&shape, 10.0f);
+  b2FixtureDef *ffd=new b2FixtureDef;
+  
+  ffd->shape = new b2PolygonShape;
+  ffd->shape=&shape;
+  ffd->restitution=1.0f;
+
+	b2->CreateFixture(ffd);
+
+
+
       }
 
 	//The lower revolving body
@@ -324,7 +348,7 @@ namespace cs251
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(30.0f, 30.0f);
+      ballbd.position.Set(-41.0f, 38.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -340,7 +364,23 @@ namespace cs251
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(17.0f, 20.0f);
+      ballbd.position.Set(-15.0f, 38.0f);
+      sbody = m_world->CreateBody(&ballbd);
+      sbody->CreateFixture(&ballfd);
+    }/////////////////////////////////////////////!
+    {
+      b2Body* sbody;
+      b2CircleShape circle;
+      circle.m_radius = 0.7f;
+
+      b2FixtureDef ballfd;
+      ballfd.shape = &circle;
+      ballfd.density = 50.0f;
+      ballfd.friction = 0.0f;
+      ballfd.restitution = 0.0f;
+      b2BodyDef ballbd;
+      ballbd.type = b2_staticBody;
+      ballbd.position.Set(-32.0f, 45.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -356,23 +396,7 @@ namespace cs251
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(11.0f, 20.0f);
-      sbody = m_world->CreateBody(&ballbd);
-      sbody->CreateFixture(&ballfd);
-    }
-    {
-      b2Body* sbody;
-      b2CircleShape circle;
-      circle.m_radius = 0.7f;
-
-      b2FixtureDef ballfd;
-      ballfd.shape = &circle;
-      ballfd.density = 50.0f;
-      ballfd.friction = 0.0f;
-      ballfd.restitution = 0.0f;
-      b2BodyDef ballbd;
-      ballbd.type = b2_staticBody;
-      ballbd.position.Set(8.0f, 20.0f);
+      ballbd.position.Set(-24.0f, 45.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -399,6 +423,7 @@ namespace cs251
       	bp1 = m_world->CreateBody(&bd);
       	b2FixtureDef *fd = new b2FixtureDef;
       	fd->density = 1.f;
+        fd->restitution=1.f;
       	fd->shape = new b2PolygonShape;
       	fd->shape = &poly7;
       	bp1->CreateFixture(fd);
@@ -426,6 +451,7 @@ namespace cs251
       	fd->density = 1.f;
       	fd->shape = new b2PolygonShape;
       	fd->shape = &poly8;
+        fd->restitution=1.f;
 		bp2->CreateFixture(fd);
 	    bp2->SetGravityScale(0);
       }
@@ -559,6 +585,7 @@ namespace cs251
       	fd->density = 1.f;
       	fd->shape = new b2PolygonShape;
       	fd->shape = &poly8;
+        fd->restitution=1.f;
 		rvb->CreateFixture(fd);
 	    rvb->SetGravityScale(0);
       }
@@ -729,6 +756,7 @@ namespace cs251
       fd->density = 1.f;
       fd->shape = new b2PolygonShape;
       fd->shape = &poly;
+      fd->restitution=1.f;
       body->CreateFixture(fd);
       	
 
@@ -749,6 +777,7 @@ namespace cs251
       	 b2FixtureDef *fd1 = new b2FixtureDef;
       fd1->density = 1.f;
       fd1->shape = new b2PolygonShape;
+      fd1->restitution=1.f;
       fd1->shape = &poly1;
       body->CreateFixture(fd1);
       	
@@ -798,7 +827,7 @@ namespace cs251
       box1->CreateFixture(fd2);
       box1->CreateFixture(fd3);
       box1->SetGravityScale(0);
-      box1->SetAngularVelocity(-0.5);
+      box1->SetAngularVelocity(-2.5);
 
     }
 /*
@@ -946,6 +975,7 @@ namespace cs251
       fd1->density = 1.f;
       fd1->shape = new b2PolygonShape;
       fd1->shape = &poly1;
+      fd1->restitution=1.f;
       body->CreateFixture(fd1);
       	
     }
