@@ -18,6 +18,7 @@
 
 #include "cs251_base.hpp"
 #include <cstdio>
+#include <iostream>
 using namespace std;
 using namespace cs251;
 
@@ -41,6 +42,8 @@ base_sim_t::base_sim_t()
 
 	memset(&m_max_profile, 0, sizeof(b2Profile));
 	memset(&m_total_profile, 0, sizeof(b2Profile));
+  bodyAAA = NULL;
+  m_contacting = false;     ////defined by me
 }
 
 base_sim_t::~base_sim_t()
@@ -104,6 +107,9 @@ void base_sim_t::step(settings_t* settings)
       m_text_line += 15;
     }
   
+//change
+   if(m_contacting==true && bodyAAA->GetUserData() != NULL) {bodyAAA->SetTransform(b2Vec2(10,10),0); bodyAAA = NULL;}
+
   uint32 flags = 0;
   flags += settings->draw_shapes			* b2Draw::e_shapeBit;
   flags += settings->draw_joints			* b2Draw::e_jointBit;

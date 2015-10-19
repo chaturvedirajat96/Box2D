@@ -36,6 +36,7 @@
 
 using namespace std;
 
+
 void debug_draw_t::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
 	glColor3f(color.r, color.g, color.b);
@@ -82,6 +83,8 @@ void debug_draw_t::DrawCircle(const b2Vec2& center, float32 radius, const b2Colo
 		glVertex2f(v.x, v.y);
 		theta += k_increment;
 	}
+	//if ( m_contacting ) glColor3f(1,0,0);//red newly added
+	//else glColor3f(1,1,1);	//new
 	glEnd();
 }
 

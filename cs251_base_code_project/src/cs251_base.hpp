@@ -29,7 +29,7 @@
 #include "render.hpp"
 #include <Box2D/Box2D.h>
 #include <cstdlib>
-
+#include<iostream>
 #define	RAND_LIMIT 32767
 
 namespace cs251
@@ -114,6 +114,8 @@ namespace cs251
     b2PointState state;
   };
   
+   
+
   class base_sim_t : public b2ContactListener
   {
   public:
@@ -135,20 +137,47 @@ namespace cs251
     virtual void mouse_down(const b2Vec2& p) { B2_NOT_USED(p); }
     virtual void mouse_up(const b2Vec2& p) { B2_NOT_USED(p); }
     void mouse_move(const b2Vec2& p) { B2_NOT_USED(p); }
-
     
+//change
+
+//changened
+
     // Let derived tests know that a joint was destroyed.
     virtual void joint_destroyed(b2Joint* joint) { B2_NOT_USED(joint); }
     
     // Callbacks for derived classes.
-    virtual void begin_contact(b2Contact* contact) { B2_NOT_USED(contact); }
-    virtual void end_contact(b2Contact* contact) { B2_NOT_USED(contact); }
+    void BeginContact(b2Contact* contact) { 
+     b2Body* bodyA =contact->GetFixtureA()->GetBody();
+         bodyAAA =contact->GetFixtureB()->GetBody();
+       
+        if(bodyA == lineleft )
+        {
+          m_contacting = true;
+          
+          
+        }
+
+
+
+
+
+     // std::cout<<"hello"; 
+    }
+    void EndContact(b2Contact* contact) { 
+    m_contacting = false;
+  
+
+     }
     virtual void pre_solve(b2Contact* contact, const b2Manifold* oldManifold);
     virtual void post_solve(const b2Contact* contact, const b2ContactImpulse* impulse)
     {
       B2_NOT_USED(contact);
       B2_NOT_USED(impulse);
     }
+ 
+
+    
+
     //mouseX();
   //!How are protected members different from private memebers of a class in C++ ?
   protected:
@@ -163,12 +192,19 @@ namespace cs251
 
     debug_draw_t m_debug_draw;
     int32 m_text_line;
-    b2World* m_world;
+    
 
     int32 m_step_count;
     
     b2Profile m_max_profile;
     b2Profile m_total_profile;
+
+    bool m_contacting; /////defined by me
+  public:
+    b2World* m_world;
+    b2Body * bodyAAA;
+    b2Body *lineleft;
+    b2Body *spherebody;
   };
 }
 

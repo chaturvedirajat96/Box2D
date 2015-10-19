@@ -243,30 +243,33 @@ namespace cs251
     //random air particles
     
 //The train of small spheres
+    
     {
-      b2Body* spherebody;
+     
 
       b2CircleShape circle;
       circle.m_radius = 0.2;
-
+          //new
       b2FixtureDef ballfd;
       ballfd.shape = &circle;
-      ballfd.density = 1.0f;
+      ballfd.density = 0.25f;
       ballfd.friction = 0.0f;
-      ballfd.restitution = 1.0f;
+      ballfd.restitution = 0.95f;
+      ballfd.filter.groupIndex = 1;
 
-      for (int i = 0; i < 5; ++i)
+      for (int i = 0; i <18 ; ++i)
   {
-    for(int j=0;j<5;j++)
+    for(int j=0;j<4;j++)
     {
-      int r1=rand() % 5 +1;
-      int r2=rand() % 3 ;
+      float r1=rand() % 3 ;
+      float r2=rand() % 2 ;
     b2BodyDef ballbd;
     ballbd.type = b2_dynamicBody;
-    ballbd.position.Set(-30.5f + i*1.0, 22.0f+j*j*0.5);
+    ballbd.position.Set(-36.0f + i*0.8, 22.0f+j*0.5);
     spherebody = m_world->CreateBody(&ballbd);
     spherebody->CreateFixture(&ballfd);
-    spherebody->SetLinearVelocity(b2Vec2(r1,0));
+    spherebody->SetUserData(this);
+    spherebody->SetLinearVelocity(b2Vec2(r1,1));
       spherebody->SetGravityScale(-r2);
   }
   }
@@ -298,7 +301,8 @@ namespace cs251
       }
 
 	//The lower revolving body
-      b2Body* b4;
+      //change
+      b2Body *b4;
       {
 	b2PolygonShape shape;
 	shape.SetAsBox(3.0f, 3.0f);
@@ -426,6 +430,7 @@ namespace cs251
         fd->restitution=1.f;
       	fd->shape = new b2PolygonShape;
       	fd->shape = &poly7;
+
       	bp1->CreateFixture(fd);
         bp1->SetGravityScale(0);
 
@@ -452,6 +457,7 @@ namespace cs251
       	fd->shape = new b2PolygonShape;
       	fd->shape = &poly8;
         fd->restitution=1.f;
+        fd->filter.groupIndex = -1;
 		bp2->CreateFixture(fd);
 	    bp2->SetGravityScale(0);
       }
@@ -537,6 +543,45 @@ namespace cs251
     }
     
     
+//////////////////////////////line1
+    
+    {
+        float x0 = -38.0f, y0 = 28.5;
+
+         
+        b2EdgeShape shape; 
+        b2BodyDef bd;
+        lineleft = m_world->CreateBody(&bd);
+  
+          shape.Set(b2Vec2(x0,y0), b2Vec2(-35, 33));
+          b2FixtureDef fd;
+          fd.shape = &shape;
+          fd.filter.groupIndex = -1;
+          lineleft->CreateFixture(&fd); 
+          lineleft->SetUserData(this);
+
+    }
+
+    {
+        float x0 = -18.0f, y0 = 28.5;
+
+        b2Body* b1; 
+        b2EdgeShape shape; 
+        b2BodyDef bd;
+        b1 = m_world->CreateBody(&bd);
+  
+          shape.Set(b2Vec2(x0,y0), b2Vec2(-21, 33));
+          b2FixtureDef fd;
+          fd.shape = &shape;
+          fd.filter.groupIndex = -1;
+          b1->CreateFixture(&fd); 
+
+    }
+///////////////////////////////////////////////
+
+
+
+
 //valve system right side
     {
 	//right Valve part 1
@@ -586,6 +631,7 @@ namespace cs251
       	fd->shape = new b2PolygonShape;
       	fd->shape = &poly8;
         fd->restitution=1.f;
+        fd->filter.groupIndex=-1;
 		rvb->CreateFixture(fd);
 	    rvb->SetGravityScale(0);
       }
@@ -775,6 +821,7 @@ namespace cs251
 
       	b2Body* body = m_world->CreateBody(&bd1);
       	 b2FixtureDef *fd1 = new b2FixtureDef;
+         body->SetUserData(NULL);
       fd1->density = 1.f;
       fd1->shape = new b2PolygonShape;
       fd1->restitution=1.f;
@@ -830,132 +877,6 @@ namespace cs251
       box1->SetAngularVelocity(-2.5);
 
     }
-/*
-    {
-      b2BodyDef *bd = new b2BodyDef;
-      bd->type = b2_dynamicBody;
-      bd->position.Set(-10,15);
-      bd->fixedRotation = false;
-       //The open box
-      b2FixtureDef *fd1 = new b2FixtureDef;
-      fd1->density = 10.0;
-      fd1->friction = 0.5;
-      fd1->restitution = 0.f;
-      fd1->shape = new b2PolygonShape;
-      b2PolygonShape bs1;
-      bs1.SetAsBox(4,0.7, b2Vec2(0.f,-1.9f), 0.2);
-
-
-
-      fd1->shape = &bs1;
-      b2FixtureDef *fd2 = new b2FixtureDef;
-      fd2->density = 10.0;
-      fd2->friction = 0.5;
-      fd2->restitution = 0.f;
-      fd2->shape = new b2PolygonShape;
-      b2PolygonShape bs2;
-      bs2.SetAsBox(4,0.7, b2Vec2(7.0f,-2.f), -0.2f);
-      fd2->shape = &bs2;
-      //b2FixtureDef *fd3 = new b2FixtureDef;
-      //fd3->density = 10.0;
-      //fd3->friction = 0.5;
-      //fd3->restitution = 0.f;
-      //fd3->shape = new b2PolygonShape;
-      //b2PolygonShape bs3;
-      //bs3.SetAsBox(0.2,2, b2Vec2(-2.0f,0.f), -0.523598775f);
-      //fd3->shape = &bs3;
-
-
-      b2Body* box1 = m_world->CreateBody(bd);
-      box1->CreateFixture(fd1);
-      box1->CreateFixture(fd2);
-      //box1->CreateFixture(fd3);
-      box1->SetGravityScale(0);
-      box1->SetAngularVelocity(0);
-
-      b2RevoluteJointDef jointDef;
-      jointDef.bodyA = body;
-      jointDef.bodyB = body2;
-      jointDef.localAnchorA.Set(0,0);
-      jointDef.localAnchorB.Set(0,0);
-      jointDef.collideConnected = false;
-      m_world->CreateJoint(&jointDef);
-
-    }
-*/
-    /*
-    {
-      b2Body* b2;
-      {
-  b2PolygonShape shape;
-  shape.SetAsBox(4,0.7, b2Vec2(0.f,-1.9f), 0.2);
-
-  b2BodyDef bd;
-  bd.type=b2_dynamicBody;
-  b2 = m_world->CreateBody(&bd);
-  b2->CreateFixture(&shape, 10.0f);
-  b2->SetGravityScale(0);
-      }
-
-      b2Body* b4;
-      {
-  b2PolygonShape shape;
-  shape.SetAsBox(4,0.7, b2Vec2(7.0f,-2.f), -0.2f);
-
-  b2BodyDef bd;
-  bd.type = b2_dynamicBody;
-  b4 = m_world->CreateBody(&bd);
-  b4->CreateFixture(&shape, 10.0f);
-  b4->SetGravityScale(0);
-  //b4->SetAngularVelocity( 1 );
-      }
-
-
-
-
-  //b2DistanceJointDef jointDef;
-
-  //b2Vec2 anchorA;
-  //b2Vec2 anchorB;
-
-  //anchorA.Set(-28.0f,21.0f);
-  //anchorB.Set(-32.0f,6.0f);
-
-  //jointDef.Initialize(b2, b4, anchorA, anchorB);
-
-  //jointDef.collideConnected = true;
-
-
-      b2RevoluteJointDef jd;
-      b2Vec2 anchor;
-      anchor.Set(7.0f,-2.f);
-      jd.Initialize(b2, b4,anchor);
-      m_world->CreateJoint(&jd);
-    }
-*/
-    {
-        b2PolygonShape poly17;
-        b2BodyDef bd1;
-        b2Vec2 vertices[8];
-        vertices[0].Set(0.0f,0.0f);
-        vertices[1].Set(10.0f,0.0f);
-        vertices[2].Set(10.0f,5.0f);
-        vertices[3].Set(6.0f,5.0f);
-        vertices[4].Set(6.0f,10.0f);
-        vertices[5].Set(4.0f,10.0f);
-        vertices[6].Set(4.0f,5.0f);
-        vertices[7].Set(0.0f,5.0f);
-        poly17.Set(vertices, 8);
-        bd1.type=b2_staticBody;
-
-        b2Body* body = m_world->CreateBody(&bd1);
-         b2FixtureDef *fd1 = new b2FixtureDef;
-      fd1->density = 1.f;
-      fd1->shape = new b2PolygonShape;
-      fd1->shape = &poly17;
-      body->CreateFixture(fd1);
-        
-        }
 
 
     //just uppar stand

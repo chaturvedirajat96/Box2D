@@ -285,6 +285,9 @@ namespace cs251
     entry = cs251::sim;
     test = entry->create_fcn();
     resize_cb(width, height);
+
+    // change
+  test->m_world->SetContactListener(test);
   }
   
   void callbacks_t::pause_cb(int)
