@@ -44,6 +44,7 @@ base_sim_t::base_sim_t()
 	memset(&m_total_profile, 0, sizeof(b2Profile));
   bodyAAA = NULL;
   m_contacting = false;     ////defined by me
+  m_contacting1 = false;
 }
 
 base_sim_t::~base_sim_t()
@@ -108,7 +109,8 @@ void base_sim_t::step(settings_t* settings)
     }
   
 //change
-   if(m_contacting==true && bodyAAA->GetUserData() != NULL) {bodyAAA->SetTransform(b2Vec2(10,10),0); bodyAAA = NULL;}
+   if(m_contacting==true && bodyAAA->GetUserData() != NULL) {bodyAAA->SetTransform(b2Vec2(-21,32),0); bodyAAA = NULL;}
+   //else if(m_contacting1==true && bodyAAA->GetUserData() !=NULL) {bodyAAA->SetTransform(b2Vec2(-9,35),0);bodyAAA = NULL;}
 
   uint32 flags = 0;
   flags += settings->draw_shapes			* b2Draw::e_shapeBit;

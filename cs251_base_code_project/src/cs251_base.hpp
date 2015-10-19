@@ -150,14 +150,16 @@ namespace cs251
      b2Body* bodyA =contact->GetFixtureA()->GetBody();
          bodyAAA =contact->GetFixtureB()->GetBody();
        
-        if(bodyA == lineleft )
+        if(bodyA == lineleft || bodyA ==lineleft1 || bodyA == lineleft2 )
         {
-          m_contacting = true;
-          
-          
+          m_contacting = true;  
         }
+        /*if(bodyA == lineleft2)
+        {
 
-
+          m_contacting1 = true;
+        }
+*/
 
 
 
@@ -165,7 +167,7 @@ namespace cs251
     }
     void EndContact(b2Contact* contact) { 
     m_contacting = false;
-  
+    m_contacting1=false;
 
      }
     virtual void pre_solve(b2Contact* contact, const b2Manifold* oldManifold);
@@ -200,11 +202,15 @@ namespace cs251
     b2Profile m_total_profile;
 
     bool m_contacting; /////defined by me
+    bool m_contacting1;
   public:
     b2World* m_world;
     b2Body * bodyAAA;
     b2Body *lineleft;
+    b2Body *lineleft1;
+    b2Body *lineleft2;
     b2Body *spherebody;
+    b2Body *spherebody1;
   };
 }
 

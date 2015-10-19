@@ -153,9 +153,9 @@ obj/dominos.o: src/dominos.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/4.9/bits/locale_facets.tcc \
  /usr/include/c++/4.9/bits/basic_ios.tcc \
  /usr/include/c++/4.9/bits/ostream.tcc /usr/include/c++/4.9/istream \
- /usr/include/c++/4.9/bits/istream.tcc /usr/include/GL/freeglut.h \
- /usr/include/GL/freeglut_std.h /usr/include/GL/gl.h \
- /usr/include/GL/glext.h /usr/include/inttypes.h \
+ /usr/include/c++/4.9/bits/istream.tcc /usr/include/c++/4.9/cmath \
+ /usr/include/GL/freeglut.h /usr/include/GL/freeglut_std.h \
+ /usr/include/GL/gl.h /usr/include/GL/glext.h /usr/include/inttypes.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.9/include/stdint.h /usr/include/stdint.h \
  /usr/include/GL/glu.h /usr/include/GL/freeglut_ext.h \
  /usr/include/c++/4.9/cstring src/dominos.hpp
