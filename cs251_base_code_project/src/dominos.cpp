@@ -171,7 +171,7 @@ namespace cs251
 
 b2Body* b1; 
       {
-        float x0 = 0.0f, y0 = 0.0, r= 3.5,init=0.00;
+        float x0 = 0.0f, y0 = 0.0, r= 4,init=0.00;
         double pi=3.14159265359;
         
         b2EdgeShape shape; 
@@ -185,8 +185,8 @@ b2Body* b1;
         for(int i=0; i <48; i++){
           if(i%2==0){
             int j=i/2;
-          float tempx = x0 +4.5 * cos((15*j+7.5)*pi/180);
-          float tempy = y0 + 4.5 * sin((15*j+7.5)*pi/180);
+          float tempx = x0 +5 * cos((15*j+7.5)*pi/180);
+          float tempy = y0 + 5 * sin((15*j+7.5)*pi/180);
           shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
           b1->CreateFixture(&shape, 0.0f); 
           x=tempx;
@@ -194,8 +194,8 @@ b2Body* b1;
           else
           {
             int j=(i+1)/2;
-            float tempx = x0 +3.5 * cos((15*j)*pi/180);
-          float tempy = y0 + 3.5 * sin((15*j)*pi/180);
+            float tempx = x0 + 4 * cos((15*j)*pi/180);
+          float tempy = y0 + 4 * sin((15*j)*pi/180);
           shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
           b1->CreateFixture(&shape, 0.0f); 
           x=tempx;
@@ -207,14 +207,6 @@ b2Body* b1;
 
 	//Line joining upper and lower parts of piston
 	b2DistanceJointDef jointDef;
-  b2RevoluteJointDef revoluteJointDef;
-  
-  revoluteJointDef.bodyA = b4;
-  revoluteJointDef.bodyB = b1;
-  revoluteJointDef.collideConnected = true;
-
-  revoluteJointDef.localAnchorA.Set(0,0);
-  revoluteJointDef.localAnchorB.Set(0,0);
 
 	b2Vec2 anchorA;
 	b2Vec2 anchorB;
@@ -236,7 +228,7 @@ b2Body* b1;
      // anchor.Set(-28.0f, 35.5f);
       //jd.Initialize(b2, b4,anchor);
       m_world->CreateJoint(&jointDef);
-      m_world->CreateJoint(&revoluteJointDef);
+
     }
      
     //four circles stationary at above
@@ -876,6 +868,102 @@ b2Body* b1;
       body->CreateFixture(fd1);
       	
     }
+
+    ///////////gear
+
+
+      {
+        float x0 = 0.0f, y0 = 0.0, r= 4,init=0.00;
+        double pi=3.14159265359;
+        
+        b2EdgeShape shape; 
+        b2BodyDef bd;
+        bd.fixedRotation=true;
+        bd.position.Set(9.2f, 2.0f);
+        bd.type=b2_dynamicBody;
+        b2FixtureDef fd;
+        //fd.filter.groupIndex = 1;
+
+        gear1 = m_world->CreateBody(&bd);
+        //b1->GetLocalCenter();
+        float x=x0 + r * cos(7.5*pi/180) ;
+        float y=y0 + r * sin(7.5*pi/180) ;
+        for(int i=0; i <48; i++){
+          if(i%2==0){
+            int j=i/2;
+          float tempx = x0 +5 * cos((15*j+15)*pi/180);
+          float tempy = y0 + 5 * sin((15*j+15)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear1->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;}
+          else
+          {
+            int j=(i+1)/2;
+            float tempx = x0 +4 * cos((15*j+7.5)*pi/180);
+          float tempy = y0 + 4 * sin((15*j+7.5)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear1->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;
+          }
+        }
+        //gear1->SetGravityScale(0);
+        //gear1->SetAngularVelocity(-5);
+
+        b2PolygonShape shape2;
+      shape2.SetAsBox(0.0f, 0.0f);
+      b2BodyDef bd2;
+      bd2.position.Set(9.2f, 2.0f);
+      b2Body* body2 = m_world->CreateBody(&bd2);
+
+      b2RevoluteJointDef jointDef;
+      jointDef.bodyA = gear1;
+      jointDef.bodyB = body2;
+      jointDef.localAnchorA.Set(0 ,0);
+      jointDef.localAnchorB.Set(0,0);
+      jointDef.collideConnected = false;
+
+      
+
+      m_world->CreateJoint(&jointDef);
+    }
+{
+        float x0 = 10.0f, y0 = 35;
+
+        b2Body* b1; 
+        b2EdgeShape shape; 
+        b2BodyDef bd;
+        bd.type=b2_dynamicBody;
+        b1 = m_world->CreateBody(&bd);
+       
+          shape.Set(b2Vec2(x0,y0), b2Vec2(35, 38));
+          b2FixtureDef fd;
+          fd.shape = &shape;
+          //fd.filter.groupIndex = 1;
+          fd.restitution=1.0f;
+          b1->CreateFixture(&fd); 
+
+    }
+ {
+      b2Body* sbody;
+      b2CircleShape circle;
+      circle.m_radius = 0.7f;
+
+      b2FixtureDef ballfd;
+      ballfd.shape = &circle;
+      ballfd.density = 50.0f;
+      ballfd.friction = 0.0f;
+      ballfd.restitution = 0.0f;
+      b2BodyDef ballbd;
+      ballbd.type = b2_dynamicBody;
+      ballbd.position.Set(7.0f, 45.0f);
+      sbody = m_world->CreateBody(&ballbd);
+      sbody->CreateFixture(&ballfd);
+    }
+
 
   }
 

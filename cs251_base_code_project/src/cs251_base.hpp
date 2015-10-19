@@ -211,6 +211,7 @@ namespace cs251
     b2Body *lineleft2;
     b2Body *spherebody;
     b2Body *spherebody1;
+    b2Body *gear1;
   };
 }
 
