@@ -15,7 +15,7 @@ DOXYGEN = doxygen
 TARGET = cs251_base
 
 # Project Paths
-PROJECT_ROOT=./
+PROJECT_ROOT=.
 EXTERNAL_ROOT=$(PROJECT_ROOT)/external
 SRCDIR = $(PROJECT_ROOT)/src
 OBJDIR = $(PROJECT_ROOT)/obj
@@ -96,8 +96,22 @@ codeDoc:
 	@$(DOXYGEN) $(DOCDIR)/Doxyfile 2 > /dev/null 2>&1
 	@$(ECHO) "Done"
 
-report:ProjectReport.tex
-	@pdflatex $@.tex > /dev/null 2>&1
+report:reportm
+	@cd ./report;\
+	pdflatex ProjectReport.tex > /dev/null 2>&1
+	@rm -rf ./report/ProjectReport.aux
+	@rm -rf ./reprt/ProjectReport.log
+	@rm -rf ./report/ProjectReport.out
+
+reportm:
+	@cd ./report;\
+	pdflatex Beamer.tex > /dev/null 2>&1
+	@rm -rf ./report/Beamer.log
+	@rm -rf ./report/Beamer.aux
+	@rm -rf ./report/Beamer.out
+	@rm -rf ./report/Beamer.nav
+	@rm -rf ./report/Beamer.snm
+	@rm -rf ./report/Beamer.toc
 
 profile:
 	@if [ ! -f "$(PROJECT_ROOT)/gmon.out" ] ; then \
@@ -113,10 +127,12 @@ profile:
 
 clean:
 	@$(ECHO) -n "Cleaning up..."
-	@$(RM) $(OBJDIR)/* $(SRCDIR)/*~ $(BINDIR)/* $(PROFILE)/*
+	@$(RM) $(OBJDIR)/* $(SRCDIR)/*~  $(PROFDIR)/*
 	@$(ECHO) "Done"
+	@rm -rf ./report/ProjectReport.pdf
+	@rm -rf ./report/Beamer.pdf
 
 distclean: clean
-	@$(RM) $(BINDIR) $(OBJDIR) $(DOCDIR)/html $(PROFILE)
+	@$(RM) $(BINDIR) $(OBJDIR) $(DOCDIR)/html $(PROFDIR)
 
 release:
