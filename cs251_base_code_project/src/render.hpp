@@ -26,6 +26,8 @@
 #define _RENDER_HPP_
 
 #include <Box2D/Box2D.h>
+ #include <iostream>
+ using namespace std;
 
 struct b2AABB;
 
@@ -52,6 +54,7 @@ public:
   void DrawString(int x, int y, const char* string, ...); 
   
   void DrawAABB(b2AABB* aabb, const b2Color& color);
+
 };
 
 

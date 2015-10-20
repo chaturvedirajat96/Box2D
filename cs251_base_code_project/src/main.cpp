@@ -122,7 +122,7 @@ int main(int argc, char** argv)
   
 
   
-  entry = sim;
+  entry = sim;  
   test = entry->create_fcn();
 
 // change

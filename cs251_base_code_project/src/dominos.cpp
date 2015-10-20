@@ -66,7 +66,7 @@ namespace cs251
      
 
       b2CircleShape circle;
-      circle.m_radius = 0.2;
+      circle.m_radius = 0.08;
           //new
       b2FixtureDef ballfd;
       ballfd.shape = &circle;
@@ -76,15 +76,15 @@ namespace cs251
       //ballfd.isBullet = false;
       ballfd.filter.groupIndex = 1;
 
-      for (int i = 0; i <18 ; ++i)
+      for (int i = 0; i <5 ; ++i)
   {
     for(int j=0;j<4;j++)
     {
-      float r1=rand() % 3 ;
-      float r2=rand() % 2 ;
+      //float r1=rand() % 3 ;
+      //float r2=rand() % 2 ;
     b2BodyDef ballbd;
     ballbd.type = b2_dynamicBody;
-    ballbd.position.Set(-36.0f + i*0.8, 22.0f+j*0.5);
+    ballbd.position.Set(-6.0f + i*2, 22.0f+j*0.5);
     spherebody = m_world->CreateBody(&ballbd);
     spherebody->CreateFixture(&ballfd);
     spherebody->SetUserData(this);
@@ -98,7 +98,7 @@ namespace cs251
      
 
       b2CircleShape circle;
-      circle.m_radius = 0.2;
+      circle.m_radius = 0.08;
           //new
       b2FixtureDef ballfd;
       ballfd.shape = &circle;
@@ -108,16 +108,16 @@ namespace cs251
       //ballfd.isBullet = false;
       ballfd.filter.groupIndex = 1;
 
-      for (int i = 0; i <10 ; ++i)
+      for (int i = 0; i <8 ; ++i)
   {
-    for(int j=0;j<4;j++)
+    for(int j=0;j<8;j++)
     {
-      float r1=rand() % 3 ;
-      float r2=rand() % 2 ;
+      //float r1=rand() % 3 ;
+      //float r2=rand() % 2 ;
     b2BodyDef ballbd;
     ballbd.bullet=false;
     ballbd.type = b2_dynamicBody;
-    ballbd.position.Set(-32.0f + i*0.8, 24.5f+j*0.5);
+    ballbd.position.Set(9.f + i*0.5, 29.5f+j*0.5);
     spherebody1 = m_world->CreateBody(&ballbd);
     spherebody1->CreateFixture(&ballfd);
     spherebody1->SetUserData(this);
@@ -138,7 +138,7 @@ namespace cs251
       
 	b2BodyDef bd;
 	bd.type=b2_dynamicBody;
-	bd.position.Set(-28.0f, 18.0f);
+	bd.position.Set(2.0f, 18.0f);
 	b2 = m_world->CreateBody(&bd);
   b2FixtureDef *ffd=new b2FixtureDef;
   
@@ -155,54 +155,54 @@ namespace cs251
 
 	//The lower revolving body
       //change
-      b2Body *b4;
+      
       {
 	b2PolygonShape shape;
 	shape.SetAsBox(3.0f, 3.0f);
 
 	b2BodyDef bd;
 	bd.type = b2_kinematicBody;
-	bd.position.Set(-28.0f, 2.0f);
-	b4 = m_world->CreateBody(&bd);
-	b4->CreateFixture(&shape, 10.0f);
+	bd.position.Set(2.0f, 1.0f);
+	bpiston = m_world->CreateBody(&bd);
+	bpiston->CreateFixture(&shape, 10.0f);
 	
-	b4->SetAngularVelocity( -5 );
+	bpiston->SetAngularVelocity( 0-w2 );
       }
 
-b2Body* b1; 
+ 
       {
-        float x0 = 0.0f, y0 = 0.0, r= 4,init=0.00;
+        float x0 = 0.0f, y0 = 0.0, r= 4.5;
         double pi=3.14159265359;
         
         b2EdgeShape shape; 
         b2BodyDef bd;
-        bd.position.Set(-28.0f, 2.0f);
+        bd.position.Set(2.0f, 1.0f);
         bd.type=b2_kinematicBody;
-        b1 = m_world->CreateBody(&bd);
+        bpiston2 = m_world->CreateBody(&bd);
         //b1->GetLocalCenter();
         float x=x0 + r ;
         float y=y0 ;
         for(int i=0; i <48; i++){
           if(i%2==0){
             int j=i/2;
-          float tempx = x0 +5 * cos((15*j+7.5)*pi/180);
-          float tempy = y0 + 5 * sin((15*j+7.5)*pi/180);
+          float tempx = x0 +(r+1.5) * cos((15*j+7.5)*pi/180);
+          float tempy = y0 + (r+1.5) * sin((15*j+7.5)*pi/180);
           shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
-          b1->CreateFixture(&shape, 0.0f); 
+          bpiston2->CreateFixture(&shape, 0.0f); 
           x=tempx;
           y=tempy;}
           else
           {
             int j=(i+1)/2;
-            float tempx = x0 + 4 * cos((15*j)*pi/180);
-          float tempy = y0 + 4 * sin((15*j)*pi/180);
+            float tempx = x0 + r * cos((15*j)*pi/180);
+          float tempy = y0 + r * sin((15*j)*pi/180);
           shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
-          b1->CreateFixture(&shape, 0.0f); 
+          bpiston2->CreateFixture(&shape, 0.0f); 
           x=tempx;
           y=tempy;
           }
         }
-        b1->SetAngularVelocity(-5);
+        bpiston2->SetAngularVelocity(0-w2);
     }
 
 	//Line joining upper and lower parts of piston
@@ -212,11 +212,11 @@ b2Body* b1;
 	b2Vec2 anchorB;
  
 
-	anchorA.Set(-28.0f,18.0f);
-	anchorB.Set(-31.0f,5.0f);
+	anchorA.Set(2.0f,18.0f);
+	anchorB.Set(-1.0f,4.0f);
   
 
-	jointDef.Initialize(b2, b4, anchorA, anchorB);
+	jointDef.Initialize(b2, bpiston, anchorA, anchorB);
   
 
 	jointDef.collideConnected = true;
@@ -244,7 +244,7 @@ b2Body* b1;
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(-41.0f, 38.0f);
+      ballbd.position.Set(-11.0f, 38.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -260,7 +260,7 @@ b2Body* b1;
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(-15.0f, 38.0f);
+      ballbd.position.Set(15.0f, 38.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }/////////////////////////////////////////////!
@@ -276,7 +276,7 @@ b2Body* b1;
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(-32.0f, 45.0f);
+      ballbd.position.Set(-2.0f, 45.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -292,7 +292,7 @@ b2Body* b1;
       ballfd.restitution = 0.0f;
       b2BodyDef ballbd;
       ballbd.type = b2_staticBody;
-      ballbd.position.Set(-24.0f, 45.0f);
+      ballbd.position.Set(6.0f, 45.0f);
       sbody = m_world->CreateBody(&ballbd);
       sbody->CreateFixture(&ballfd);
     }
@@ -306,12 +306,12 @@ b2Body* b1;
       	b2PolygonShape poly7;
       	b2BodyDef bd;
       	b2Vec2 vertices[6];
-      	vertices[0].Set(-35.0f,24.5f);		//done
-      	vertices[1].Set(-31.0f,28.0f);		//done
-      	vertices[2].Set(-31.9f,29.2f);		//done
-      	vertices[3].Set(-34.2f,28.7f);
-      	vertices[4].Set(-35.0f,28.0f);
-      	vertices[5].Set(-35.7f,25.5f);		
+      	vertices[0].Set(-5.0f,24.5f);		//done
+      	vertices[1].Set(-1.0f,28.0f);		//done
+      	vertices[2].Set(-1.9f,29.2f);		//done
+      	vertices[3].Set(-4.2f,28.7f);
+      	vertices[4].Set(-5.0f,28.0f);
+      	vertices[5].Set(-5.7f,25.5f);		
       	
       	poly7.Set(vertices, 6);
       	bd.type=b2_dynamicBody;
@@ -335,10 +335,10 @@ b2Body* b1;
 		b2BodyDef bd;
 		b2Vec2 vertices[4];
 
-		vertices[0].Set(-35.0f,28.0f);
-		vertices[1].Set(-34.2f,28.7f);
-		vertices[2].Set(-40.22f,35.8f);
-		vertices[3].Set(-41.35f,35.f);
+		vertices[0].Set(-5.0f,28.0f);
+		vertices[1].Set(-4.2f,28.7f);
+		vertices[2].Set(-10.22f,35.8f);
+		vertices[3].Set(-11.35f,35.f);
 
 		poly8.Set(vertices,4);
 		bd.type = b2_dynamicBody;
@@ -361,7 +361,7 @@ b2Body* b1;
       shape.SetAsBox(6.3f, 0.4f);
 
       b2BodyDef bd;
-      bd.position.Set(-36.0f, 38.75f);
+      bd.position.Set(-6.0f, 38.75f);
       bd.type = b2_dynamicBody;
       b2Body* body = m_world->CreateBody(&bd);
       b2FixtureDef *fd = new b2FixtureDef;
@@ -375,7 +375,7 @@ b2Body* b1;
       b2PolygonShape shape2;
       shape2.SetAsBox(0.0f, 0.0f);
       b2BodyDef bd2;
-      bd2.position.Set(-37.0f, 38.75f);
+      bd2.position.Set(-7.0f, 38.75f);
       b2Body* body2 = m_world->CreateBody(&bd2);
 
       b2RevoluteJointDef jointDef;
@@ -406,12 +406,12 @@ b2Body* b1;
 	//b2Vec2 anchor7;
 	//b2Vec2 anchor8;
 
-	anchorA.Set(-34.2f,28.7f);
-	anchorB.Set(-34.2f,28.7f);
-	anchorC.Set(-35.0f,28.0f);
-	anchorD.Set(-35.0f,28.0f);
-	anchor5.Set(-41.35f,35.f);
-	anchor6.Set(-41.35f,35.f);
+	anchorA.Set(-4.2f,28.7f);
+	anchorB.Set(-4.2f,28.7f);
+	anchorC.Set(-5.0f,28.0f);
+	anchorD.Set(-5.0f,28.0f);
+	anchor5.Set(-11.35f,35.f);
+	anchor6.Set(-11.35f,35.f);
 	//anchor7.Set(-38.22f,35.8f);
 	//anchor8.Set(-38.22f,35.8f);
   	
@@ -440,14 +440,14 @@ b2Body* b1;
 //////////////////////////////outlet
     
     {
-        float x0 = -45.0f, y0 = 33.f;
+        float x0 = -15.0f, y0 = 33.f;
 
          
         b2EdgeShape shape; 
         b2BodyDef bd;
         lineleft = m_world->CreateBody(&bd);
   
-          shape.Set(b2Vec2(x0,y0), b2Vec2(-44, 37));
+          shape.Set(b2Vec2(x0,y0), b2Vec2(-14, 37));
           b2FixtureDef fd;
           fd.shape = &shape;
           fd.filter.groupIndex = -1;
@@ -457,14 +457,14 @@ b2Body* b1;
     }
 
     {
-        float x0 = -38.0f, y0 = 28.5;
+        float x0 = -8.0f, y0 = 28.5;
 
          
         b2EdgeShape shape; 
         b2BodyDef bd;
         lineleft1 = m_world->CreateBody(&bd);
   
-          shape.Set(b2Vec2(x0,y0), b2Vec2(-45, 33));
+          shape.Set(b2Vec2(x0,y0), b2Vec2(-15, 33));
           b2FixtureDef fd;
           fd.shape = &shape;
           fd.filter.groupIndex = -1;
@@ -474,14 +474,14 @@ b2Body* b1;
     }
 
     {
-        float x0 = -35.0f, y0 = 33.f;
+        float x0 = -5.0f, y0 = 33.f;
 
          
         b2EdgeShape shape; 
         b2BodyDef bd;
         lineleft2 = m_world->CreateBody(&bd);
   
-          shape.Set(b2Vec2(x0,y0), b2Vec2(-44, 37));
+          shape.Set(b2Vec2(x0,y0), b2Vec2(-14, 37));
           b2FixtureDef fd;
           fd.shape = &shape;
           fd.filter.groupIndex = -1;
@@ -493,14 +493,14 @@ b2Body* b1;
 
     //////////////////inlet
     {
-        float x0 = -8.0f, y0 = 35;
+        float x0 = 22.0f, y0 = 35;
 
         b2Body* b1; 
         b2EdgeShape shape; 
         b2BodyDef bd;
         b1 = m_world->CreateBody(&bd);
        
-          shape.Set(b2Vec2(x0,y0), b2Vec2(-11, 38));
+          shape.Set(b2Vec2(x0,y0), b2Vec2(19, 38));
           b2FixtureDef fd;
           fd.shape = &shape;
           fd.filter.groupIndex = -1;
@@ -510,14 +510,14 @@ b2Body* b1;
     }
 
     {
-        float x0 = -18.0f, y0 = 28.5;
+        float x0 = 12.0f, y0 = 28.5;
 
         b2Body* b1; 
         b2EdgeShape shape; 
         b2BodyDef bd;
         b1 = m_world->CreateBody(&bd);
        
-          shape.Set(b2Vec2(x0,y0), b2Vec2(-8, 35));
+          shape.Set(b2Vec2(x0,y0), b2Vec2(22, 35));
           b2FixtureDef fd;
           fd.shape = &shape;
           fd.filter.groupIndex = -1;
@@ -527,14 +527,14 @@ b2Body* b1;
     }
 
     {
-        float x0 = -21.0f, y0 = 33;
+        float x0 = 9.0f, y0 = 33;
 
         b2Body* b1; 
         b2EdgeShape shape; 
         b2BodyDef bd;
         b1 = m_world->CreateBody(&bd);
        
-          shape.Set(b2Vec2(x0,y0), b2Vec2(-11, 38));
+          shape.Set(b2Vec2(x0,y0), b2Vec2(19, 38));
           b2FixtureDef fd;
           fd.shape = &shape;
           fd.filter.groupIndex = -1;
@@ -557,12 +557,12 @@ b2Body* b1;
       	b2PolygonShape poly7;
       	b2BodyDef bd;
       	b2Vec2 vertices[6];
-      	vertices[0].Set(-21.0f,24.5f);		//done
-      	vertices[1].Set(-25.0f,28.0f);		//done
-      	vertices[2].Set(-24.1f,29.2f);		//done
-      	vertices[3].Set(-21.8f,28.7f);
-      	vertices[4].Set(-21.0f,28.0f);
-      	vertices[5].Set(-20.3f,25.5f);		
+      	vertices[0].Set(9.0f,24.5f);		//done
+      	vertices[1].Set(5.0f,28.0f);		//done
+      	vertices[2].Set(5.9f,29.2f);		//done
+      	vertices[3].Set(8.2f,28.7f);
+      	vertices[4].Set(9.f,28.0f);
+      	vertices[5].Set(9.7f,25.5f);		
       	
       	poly7.Set(vertices, 6);
       	bd.type=b2_dynamicBody;
@@ -584,10 +584,10 @@ b2Body* b1;
 		b2BodyDef bd;
 		b2Vec2 vertices[4];
 
-		vertices[0].Set(-21.0f,28.0f);
-		vertices[1].Set(-21.8f,28.7f);
-		vertices[2].Set(-15.78f,35.8f);
-		vertices[3].Set(-14.65f,35.f);
+		vertices[0].Set(9.0f,28.0f);
+		vertices[1].Set(8.2f,28.7f);
+		vertices[2].Set(14.22f,35.8f);
+		vertices[3].Set(15.35f,35.f);
 
 		poly8.Set(vertices,4);
 		bd.type = b2_dynamicBody;
@@ -610,7 +610,7 @@ b2Body* b1;
       shape.SetAsBox(6.3f, 0.4f);
 
       b2BodyDef bd;
-      bd.position.Set(-20.0f, 38.75f);
+      bd.position.Set(10.0f, 38.75f);
       bd.type = b2_dynamicBody;
       b2Body* body = m_world->CreateBody(&bd);
       b2FixtureDef *fd = new b2FixtureDef;
@@ -623,7 +623,7 @@ b2Body* b1;
       b2PolygonShape shape2;
       shape2.SetAsBox(0.0f, 0.0f);
       b2BodyDef bd2;
-      bd2.position.Set(-19.0f, 38.75f);
+      bd2.position.Set(11.0f, 38.75f);
       b2Body* body2 = m_world->CreateBody(&bd2);
 
       b2RevoluteJointDef jointDef;
@@ -654,12 +654,12 @@ b2Body* b1;
 	//b2Vec2 anchor7;
 	//b2Vec2 anchor8;
 
-	anchorA.Set(-21.8f,28.7f);
-	anchorB.Set(-21.8f,28.7f);
-	anchorC.Set(-21.0f,28.0f);
-	anchorD.Set(-21.0f,28.0f);
-	anchor5.Set(-14.65f,35.f);
-	anchor6.Set(-14.65f,35.f);
+	anchorA.Set(8.2f,28.7f);
+	anchorB.Set(8.2f,28.7f);
+	anchorC.Set(9.f,28.0f);
+	anchorD.Set(9.f,28.0f);
+	anchor5.Set(15.35f,35.f);
+	anchor6.Set(15.35f,35.f);
 	//anchor7.Set(-38.22f,35.8f);
 	//anchor8.Set(-38.22f,35.8f);
   	
@@ -686,82 +686,16 @@ b2Body* b1;
     
 	
 
-//faltu cross in right
-{
-            //group index -1 here,the wont collide with themslevs
-            //change groupindex of other objects
-            //this is the new rotating wind mill
-
-
-            b2PolygonShape shape,shape3;
-            shape.SetAsBox(1.6f, 0.2f);
-            shape3.SetAsBox(0.2f,1.6f);
-            for(int i=0; i<1; i++)
-            {
-                b2BodyDef bd;
-                bd.position.Set(28.5f, 25.7f-2.5f*i);
-                if(i%2==0)
-                {
-                    bd.angle=3.14/2-0.614;
-                }
-                else
-                {
-                    bd.angle=3.14/2+0.614;
-                }
-                bd.type=b2_dynamicBody;
-                b2Body* body = m_world->CreateBody(&bd);
-                b2FixtureDef *fd = new b2FixtureDef;
-                fd->density = 1.f;
-                fd->restitution = 0.0f;
-                fd->filter.groupIndex = -1;
-                fd->shape = new b2PolygonShape;
-                fd->shape = &shape;
-              
-                b2FixtureDef *fd1 = new b2FixtureDef;
-                fd1->density = 1.f;
-                  fd1->restitution = 1.0f;
-                fd1->filter.groupIndex = -1;
-                fd1->shape = new b2PolygonShape;
-                fd1->shape = &shape3;
-                body->CreateFixture(fd);
-                body->CreateFixture(fd1);
-                //body->SetAngularVelocity(3);
-
-
-
-                //useless body
-                b2PolygonShape shape2;
-                shape2.SetAsBox(0.2f, 1.5f);
-                b2BodyDef bd2;
-                bd2.position.Set(28.5f, 25.7f-2.5f*i);
-                b2Body* body2 = m_world->CreateBody(&bd2);
-
-                //joint is defined here
-                b2RevoluteJointDef jointDef;
-                jointDef.bodyA = body;
-                jointDef.bodyB = body2;
-                jointDef.localAnchorA.Set(1,0);
-                jointDef.localAnchorB.Set(1,0);
-                jointDef.collideConnected = false;
-                m_world->CreateJoint(&jointDef);
-            }
-
-
-        }
-
-
-
-
 //both side stand
 	//Left stand
     {
       	b2PolygonShape poly;
       	b2BodyDef bd;
       	b2Vec2 vertices[4];
-      	vertices[0].Set(-38.0f,7.5f);
-      	vertices[1].Set(-36.95f,7.5f);
-      	vertices[2].Set(-36.95f,27.0f);
-      	vertices[3].Set(-38.0f,28.5f);
+      	vertices[0].Set(-8.0f,7.5f);
+      	vertices[1].Set(-6.95f,7.5f);
+      	vertices[2].Set(-6.95f,27.0f);
+      	vertices[3].Set(-8.0f,28.5f);
       	poly.Set(vertices, 4);
       	bd.type=b2_staticBody;
 
@@ -780,10 +714,10 @@ b2Body* b1;
       	b2PolygonShape poly1;
       	b2BodyDef bd1;
       	b2Vec2 vertices[4];
-      	vertices[0].Set(-18.0f,7.5f);
-      	vertices[1].Set(-19.05f,7.5f);
-      	vertices[2].Set(-19.05f,27.0f);
-      	vertices[3].Set(-18.0f,28.5f);
+      	vertices[0].Set(12.0f,7.5f);
+      	vertices[1].Set(10.95f,7.5f);
+      	vertices[2].Set(10.95f,27.0f);
+      	vertices[3].Set(12.f,28.5f);
       	poly1.Set(vertices, 4);
       	bd1.type=b2_staticBody;
 
@@ -802,9 +736,11 @@ b2Body* b1;
 
 	//Rotating triangle
     {
+      double pi=3.14159265359;
       b2BodyDef *bd = new b2BodyDef;
       bd->type = b2_kinematicBody;
-      bd->position.Set(-28.0f,39.1547f);
+      bd->position.Set(2.0f,39.1547f);
+      bd->angle=150*pi/180;
       bd->fixedRotation = true;
        //The open box
       b2FixtureDef *fd1 = new b2FixtureDef;
@@ -837,12 +773,12 @@ b2Body* b1;
       fd3->shape = &bs3;
 
 
-      b2Body* box1 = m_world->CreateBody(bd);
+      box1 = m_world->CreateBody(bd);
       box1->CreateFixture(fd1);
       box1->CreateFixture(fd2);
       box1->CreateFixture(fd3);
       box1->SetGravityScale(0);
-      box1->SetAngularVelocity(2.5);
+      box1->SetAngularVelocity(w2/2);
 
     }
 
@@ -852,10 +788,10 @@ b2Body* b1;
     	b2PolygonShape poly1;
       	b2BodyDef bd1;
       	b2Vec2 vertices[4];
-      	vertices[0].Set(-33.0f,29.0f);
-      	vertices[1].Set(-23.0f,29.0f);
-      	vertices[2].Set(-21.0f,33.0f);
-      	vertices[3].Set(-35.0f,33.0f);
+      	vertices[0].Set(-3.0f,29.0f);
+      	vertices[1].Set(7.0f,29.0f);
+      	vertices[2].Set(9.0f,33.0f);
+      	vertices[3].Set(-5.0f,33.0f);
       	poly1.Set(vertices, 4);
       	bd1.type=b2_staticBody;
 
@@ -869,19 +805,250 @@ b2Body* b1;
       	
     }
 
-    ///////////gear
+    ///////////gear1
 
 
       {
-        float x0 = 0.0f, y0 = 0.0, r= 4,init=0.00;
+        float x0 = 0.0f, y0 = 0.0, r= 5.5;
         double pi=3.14159265359;
         
         b2EdgeShape shape; 
         b2BodyDef bd;
         bd.fixedRotation=true;
-        bd.position.Set(9.2f, 2.0f);
-        bd.type=b2_dynamicBody;
+        bd.position.Set(pos+14, -10.8f);
+        bd.type=b2_kinematicBody;
         b2FixtureDef fd;
+        fd.isSensor=false;
+        //fd.filter.groupIndex = 1;
+
+        gear1 = m_world->CreateBody(&bd);
+        //b1->GetLocalCenter();
+        float x=x0 + r * sin(6*pi/180) ;
+        float y=y0 + r * cos(6*pi/180) ;
+        for(int i=0; i <60; i++){
+          if(i%2==0){
+            int j=i/2;
+          float tempx = x0 + (r+1.5) * sin((12*j+12)*pi/180);
+          float tempy = y0 + (r+1.5) * cos((12*j+12)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear1->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;}
+          else
+          {
+            int j=(i+1)/2;
+            float tempx = x0 +r * sin((12*j+6.0)*pi/180);
+          float tempy = y0 + r * cos((12*j+6.0)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear1->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;
+          }
+        }
+        gear1->SetGravityScale(0);
+        gear1->SetAngularVelocity(w1*4.5/5.5);
+
+    }
+///endgear1
+
+    ///gear2
+    {
+        float x0 = 0.0f, y0 = 0.0, r= 4.5;
+        double pi=3.14159265359;
+        
+        b2EdgeShape shape; 
+        b2BodyDef bd;
+        bd.fixedRotation=true;
+        bd.position.Set(pos, -9.8f);
+        bd.type=b2_kinematicBody;
+        b2FixtureDef fd;
+        fd.isSensor=false;
+        //fd.filter.groupIndex = 1;
+
+        gear2 = m_world->CreateBody(&bd);
+        //b1->GetLocalCenter();
+        float x=x0 + r * sin(7.5*pi/180) ;
+        float y=y0 + r * cos(7.5*pi/180) ;
+        for(int i=0; i <48; i++){
+          if(i%2==0){
+            int j=i/2;
+          float tempx = x0 + (r+1.5) * sin((15*j+15)*pi/180);
+          float tempy = y0 + (r+1.5) * cos((15*j+15)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear2->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;}
+          else
+          {
+            int j=(i+1)/2;
+            float tempx = x0 +r * sin((15*j+7.5)*pi/180);
+          float tempy = y0 + r * cos((15*j+7.5)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear2->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;
+          }
+        }
+        gear2->SetGravityScale(0);
+        gear2->SetAngularVelocity(w2);
+
+    }
+///endgear2
+
+    ///gear3
+    {
+        float x0 = 0.0f, y0 = 0.0, r= 3.75;
+        double pi=3.14159265359;
+        
+        b2EdgeShape shape; 
+        b2BodyDef bd;
+        bd.fixedRotation=true;
+        bd.position.Set(pos-14, -9.05f);
+        bd.type=b2_kinematicBody;
+        b2FixtureDef fd;
+        fd.isSensor=false;
+        //fd.filter.groupIndex = 1;
+
+        gear3 = m_world->CreateBody(&bd);
+        //b1->GetLocalCenter();
+        float x=x0 + r * sin(9*pi/180) ;
+        float y=y0 + r * cos(9*pi/180) ;
+        for(int i=0; i <40; i++){
+          if(i%2==0){
+            int j=i/2;
+          float tempx = x0 + (r+1.5) * sin((18*j+18)*pi/180);
+          float tempy = y0 + (r+1.5) * cos((18*j+18)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear3->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;}
+          else
+          {
+            int j=(i+1)/2;
+            float tempx = x0 +r * sin((18*j+9)*pi/180);
+          float tempy = y0 + r * cos((18*j+9)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear3->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;
+          }
+        }
+        gear3->SetGravityScale(0);
+        gear3->SetAngularVelocity(w3*4.5/3.75);
+
+    }
+///endgear3
+
+    ///gear4
+    {
+        float x0 = 0.0f, y0 = 0.0, r= 3;
+        double pi=3.14159265359;
+        
+        b2EdgeShape shape; 
+        b2BodyDef bd;
+        bd.fixedRotation=true;
+        bd.position.Set(pos-28, -8.3f);
+        bd.type=b2_kinematicBody;
+        b2FixtureDef fd;
+        fd.isSensor=false;
+        //fd.filter.groupIndex = 1;
+
+        gear4 = m_world->CreateBody(&bd);
+        //b1->GetLocalCenter();
+        float x=x0 + r * sin(11.25*pi/180) ;
+        float y=y0 + r * cos(11.25*pi/180) ;
+        for(int i=0; i <32; i++){
+          if(i%2==0){
+            int j=i/2;
+          float tempx = x0 + (r+1.5) * sin((22.5*j+22.5)*pi/180);
+          float tempy = y0 + (r+1.5) * cos((22.5*j+22.5)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear4->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;}
+          else
+          {
+            int j=(i+1)/2;
+            float tempx = x0 +r * sin((22.5*j+11.25)*pi/180);
+          float tempy = y0 + r * cos((22.5*j+11.25)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear4->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;
+          }
+        }
+        gear4->SetGravityScale(0);
+        gear4->SetAngularVelocity(w4*4.5/3);
+
+    }
+///endgear4
+
+    ///gear5
+    {
+        float x0 = 0.0f, y0 = 0.0, r= 2.25;
+        double pi=3.14159265359;
+        
+        b2EdgeShape shape; 
+        b2BodyDef bd;
+        bd.fixedRotation=true;
+        bd.position.Set(pos-42, -7.55f);
+        bd.type=b2_kinematicBody;
+        b2FixtureDef fd;
+        fd.isSensor=false;
+        //fd.filter.groupIndex = 1;
+
+        gear5 = m_world->CreateBody(&bd);
+        //b1->GetLocalCenter();
+        float x=x0 + r * sin(15*pi/180) ;
+        float y=y0 + r * cos(15*pi/180) ;
+        for(int i=0; i <24; i++){
+          if(i%2==0){
+            int j=i/2;
+          float tempx = x0 + (r+1.5) * sin((30*j+30)*pi/180);
+          float tempy = y0 + (r+1.5) * cos((30*j+30)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear5->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;}
+          else
+          {
+            int j=(i+1)/2;
+            float tempx = x0 +r * sin((30*j+15)*pi/180);
+          float tempy = y0 + r * cos((30*j+15)*pi/180);
+          shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
+          fd.shape = &shape;
+          gear5->CreateFixture(&fd); 
+          x=tempx;
+          y=tempy;
+          }
+        }
+        gear5->SetGravityScale(0);
+        gear5->SetAngularVelocity(w5*4.5/2.25);
+
+    }
+///endgear5
+/*
+    ///reversegear
+    {
+        float x0 = 0.0f, y0 = 0.0, r= 4.5;
+        double pi=3.14159265359;
+        
+        b2EdgeShape shape; 
+        b2BodyDef bd;
+        bd.fixedRotation=true;
+        bd.position.Set(-17.2f, 1.0f);
+        bd.type=b2_kinematicBody;
+        b2FixtureDef fd;
+        fd.isSensor=false;
         //fd.filter.groupIndex = 1;
 
         gear1 = m_world->CreateBody(&bd);
@@ -891,8 +1058,8 @@ b2Body* b1;
         for(int i=0; i <48; i++){
           if(i%2==0){
             int j=i/2;
-          float tempx = x0 +5 * cos((15*j+15)*pi/180);
-          float tempy = y0 + 5 * sin((15*j+15)*pi/180);
+          float tempx = x0 + (r+1.5) * cos((15*j+15)*pi/180);
+          float tempy = y0 + (r+1.5) * sin((15*j+15)*pi/180);
           shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
           fd.shape = &shape;
           gear1->CreateFixture(&fd); 
@@ -901,8 +1068,8 @@ b2Body* b1;
           else
           {
             int j=(i+1)/2;
-            float tempx = x0 +4 * cos((15*j+7.5)*pi/180);
-          float tempy = y0 + 4 * sin((15*j+7.5)*pi/180);
+            float tempx = x0 +r * cos((15*j+7.5)*pi/180);
+          float tempy = y0 + r * sin((15*j+7.5)*pi/180);
           shape.Set(b2Vec2(x,y), b2Vec2(tempx, tempy));
           fd.shape = &shape;
           gear1->CreateFixture(&fd); 
@@ -910,59 +1077,15 @@ b2Body* b1;
           y=tempy;
           }
         }
-        //gear1->SetGravityScale(0);
-        //gear1->SetAngularVelocity(-5);
-
-        b2PolygonShape shape2;
-      shape2.SetAsBox(0.0f, 0.0f);
-      b2BodyDef bd2;
-      bd2.position.Set(9.2f, 2.0f);
-      b2Body* body2 = m_world->CreateBody(&bd2);
-
-      b2RevoluteJointDef jointDef;
-      jointDef.bodyA = gear1;
-      jointDef.bodyB = body2;
-      jointDef.localAnchorA.Set(0 ,0);
-      jointDef.localAnchorB.Set(0,0);
-      jointDef.collideConnected = false;
-
-      
-
-      m_world->CreateJoint(&jointDef);
-    }
-{
-        float x0 = 10.0f, y0 = 35;
-
-        b2Body* b1; 
-        b2EdgeShape shape; 
-        b2BodyDef bd;
-        bd.type=b2_dynamicBody;
-        b1 = m_world->CreateBody(&bd);
-       
-          shape.Set(b2Vec2(x0,y0), b2Vec2(35, 38));
-          b2FixtureDef fd;
-          fd.shape = &shape;
-          //fd.filter.groupIndex = 1;
-          fd.restitution=1.0f;
-          b1->CreateFixture(&fd); 
+        gear1->SetGravityScale(0);
+        gear1->SetAngularVelocity(2);
 
     }
- {
-      b2Body* sbody;
-      b2CircleShape circle;
-      circle.m_radius = 0.7f;
+///endreversegear
 
-      b2FixtureDef ballfd;
-      ballfd.shape = &circle;
-      ballfd.density = 50.0f;
-      ballfd.friction = 0.0f;
-      ballfd.restitution = 0.0f;
-      b2BodyDef ballbd;
-      ballbd.type = b2_dynamicBody;
-      ballbd.position.Set(7.0f, 45.0f);
-      sbody = m_world->CreateBody(&ballbd);
-      sbody->CreateFixture(&ballfd);
-    }
+      */
+
+
 
 
   }

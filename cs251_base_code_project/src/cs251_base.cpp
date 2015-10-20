@@ -36,7 +36,7 @@ base_sim_t::base_sim_t()
 	m_world->SetDebugDraw(&m_debug_draw);
 	
 	m_step_count = 0;
-
+  
 	b2BodyDef body_def;
 	m_ground_body = m_world->CreateBody(&body_def);
 
@@ -44,7 +44,19 @@ base_sim_t::base_sim_t()
 	memset(&m_total_profile, 0, sizeof(b2Profile));
   bodyAAA = NULL;
   m_contacting = false;     ////defined by me
-  m_contacting1 = false;
+  
+  w1=0;
+  w2=3;
+  w3=0;
+  w4=0;
+  w5=0;
+  wn=2;
+  gearno=2;
+  pos=2.0f;
+  i = 0;
+  settransfer = true;
+  setangular = false;
+  
 }
 
 base_sim_t::~base_sim_t()
@@ -103,15 +115,43 @@ void base_sim_t::step(settings_t* settings)
 	{
 	  time_step = 0.0f;
 	}
-      
+  
       m_debug_draw.DrawString(5, m_text_line, "****PAUSED****");
       m_text_line += 15;
     }
   
 //change
-   if(m_contacting==true && bodyAAA->GetUserData() != NULL) {bodyAAA->SetTransform(b2Vec2(-21,32),0); bodyAAA = NULL;}
-   //else if(m_contacting1==true && bodyAAA->GetUserData() !=NULL) {bodyAAA->SetTransform(b2Vec2(-9,35),0);bodyAAA = NULL;}
+   if(m_contacting==true && bodyAAA->GetUserData() != NULL) {bodyAAA->SetTransform(b2Vec2(9,32),0); 
+    bodyAAA->SetLinearVelocity(b2Vec2(-5,-2)); bodyAAA = NULL;}
+   
+  
+ if(setangular == true)
+ {
+   if(gearno==1){pos=-12;w1=wn;w2=0;w3=0;w4=0;w5=0;}
+   else if(gearno==2){pos=2;w1=0;w2=wn;w3=0;w4=0;w5=0;}
+   else if(gearno==3){pos=16;w1=0;w2=0;w3=wn;w4=0;w5=0;}
+   else if(gearno==4){pos=30;w1=0;w2=0;w3=0;w4=wn;w5=0;}
+   else if(gearno==5){pos=44;w1=0;w2=0;w3=0;w4=0;w5=wn;}
 
+   gear1->SetTransform(b2Vec2(pos+14, -10.8f),0);
+   gear2->SetTransform(b2Vec2(pos, -9.8f),0);
+   gear3->SetTransform(b2Vec2(pos-14, -9.05f),0);
+   gear4->SetTransform(b2Vec2(pos-28, -8.3f),0);
+   gear5->SetTransform(b2Vec2(pos-42, -7.55f),0);
+  
+
+  gear1->SetAngularVelocity(w1*4.5/5.5);
+  gear2->SetAngularVelocity(w2);
+  gear3->SetAngularVelocity(w3*4.5/3.75);
+  gear4->SetAngularVelocity(w4*4.5/3);
+  gear5->SetAngularVelocity(w5*4.5/2.25);
+
+  bpiston->SetAngularVelocity( 0-wn );
+  bpiston2->SetAngularVelocity( 0-wn );
+  box1->SetAngularVelocity(wn/2);
+  setangular = false;
+}
+  
   uint32 flags = 0;
   flags += settings->draw_shapes			* b2Draw::e_shapeBit;
   flags += settings->draw_joints			* b2Draw::e_jointBit;

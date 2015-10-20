@@ -7,13 +7,14 @@
 //! These are user defined include files
 //! Included in double quotes - the path to find these has to be given at compile time
 #include "callbacks.hpp"
-
+#include <iostream>
 #ifndef __APPLE__
 #include "GL/glui.h"
 #else
 #include "GL/glui.h"
 #endif
 
+using namespace std;
 //! The namespace protects the global variables and other names from
 //! clashes in scope. Read about the use of named and unnamed
 //! namespaces in C++ Figure out where all the datatypes used below
@@ -116,8 +117,18 @@ namespace cs251
     case 'p':
       settings.pause = !settings.pause;
       break;
-      
+    
       //! The default case. Why is this needed?
+      case '+':
+        test->wn=test->wn+0.25;
+        test->setangular=true;
+        break;
+
+      case '-':
+        test->wn=test->wn-0.25;
+        test->setangular=true;
+        break;
+
     default:
       if (test)
 	{
@@ -138,15 +149,23 @@ namespace cs251
       
       //! Press left to pan left.
     case GLUT_KEY_LEFT:
-      settings.view_center.x -= 0.5f;
-      resize_cb(width, height);
+      /*settings.view_center.x -= 0.5f;
+      resize_cb(width, height);*/
+      if(test->gearno >1){test->gearno--;
+        test->setangular = true;
+ }
       break;
       
     //! Press right to pan right.
     case GLUT_KEY_RIGHT:
-      settings.view_center.x += 0.5f;
-      resize_cb(width, height);
+      /*settings.view_center.x += 0.5f;
+      resize_cb(width, height);*/
+    if(test->gearno < 5){test->gearno++;
+      test->setangular = true;
+           
+}
       break;
+    
       
     //! Press down to pan down.
     case GLUT_KEY_DOWN:

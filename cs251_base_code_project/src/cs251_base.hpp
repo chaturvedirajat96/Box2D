@@ -212,6 +212,21 @@ namespace cs251
     b2Body *spherebody;
     b2Body *spherebody1;
     b2Body *gear1;
+    b2Body *gear2;
+    b2Body *gear3;
+    b2Body *gear4;
+    b2Body *gear5;
+    b2Body *reversegear;
+    float w1,w2,w3,w4,w5,wn;
+    int gearno;
+    float pos;
+    bool setangular;
+    bool settransfer;
+    int i;
+    b2Body *bpiston;
+    b2Body *bpiston2;
+    b2Body *box1;
+
   };
 }
 
