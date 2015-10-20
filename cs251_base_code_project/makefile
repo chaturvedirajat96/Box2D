@@ -4,7 +4,7 @@
 SHELL 	= bash
 CC     	= g++ -pg
 LD	= ld
-RM 	= rm
+RM 	= rm -rf
 ECHO	= /bin/echo
 CAT	= cat
 PRINTF	= printf
@@ -65,6 +65,7 @@ setup:
 	@$(ECHO) "Setting up compilation..."
 	@mkdir -p obj
 	@mkdir -p bin
+	@mkdir -p profile
 
 $(BINDIR)/$(TARGET): $(OBJS)
 	@$(PRINTF) "$(MESG_COLOR)Building executable:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
@@ -100,7 +101,7 @@ report:reportm
 	@cd ./report;\
 	pdflatex ProjectReport.tex > /dev/null 2>&1
 	@rm -rf ./report/ProjectReport.aux
-	@rm -rf ./reprt/ProjectReport.log
+	@rm -rf ./report/ProjectReport.log
 	@rm -rf ./report/ProjectReport.out
 
 reportm:
@@ -114,12 +115,11 @@ reportm:
 	@rm -rf ./report/Beamer.toc
 
 profile:
-	@if [ ! -f "$(PROJECT_ROOT)/gmon.out" ] ; then \
+	@if [ ! -f $(PROJECT_ROOT)/gmon.out ] ; then \
 		$(ECHO) "gmon.out not present" ;\
 	fi
-	@if [ -f "$(PROJECT_ROOT)/gmon.out" ] ; then
-		mkdir -p profile
-		gprof $(PROJECT_ROOT)/bin/cs251_base > $(PROFDIR)/Analysis.txt ;\
+	@if [ -f $(PROJECT_ROOT)/gmon.out ] ; then \
+		gprof $(PROJECT_ROOT)/bin/cs251_base $(PROJECT_ROOT)/gmon.out > $(PROFDIR)/Analysis.txt ;\
 		python gprof2dot.py $(PROFDIR)/Analysis.txt > $(PROFDIR)/Analysis.dot ;\
 		dot -Tpng $(PROFDIR)/Analysis.dot  -o $(PROFDIR)/Callgraph.png ;\
 		$(ECHO) "Done" ;\
@@ -129,6 +129,11 @@ clean:
 	@$(ECHO) -n "Cleaning up..."
 	@$(RM) $(OBJDIR)/* $(SRCDIR)/*~  $(PROFDIR)/*
 	@$(ECHO) "Done"
+	@rm -rf ./report/ProjectReport.pdf
+	@rm -rf ./report/Beamer.pdf
+	@rm -rf ./texput.log
+	@rm -rf ./normalanalysis.txt
+	@rm -rf ./gmon.out
 	@rm -rf ./report/ProjectReport.pdf
 	@rm -rf ./report/Beamer.pdf
 
