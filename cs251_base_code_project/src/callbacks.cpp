@@ -118,22 +118,25 @@ namespace cs251
       settings.pause = !settings.pause;
       break;
     
-      //! The default case. Why is this needed?
+      
       case '+':
         test->wn=test->wn+0.25;
         test->setangular=true;
         break;
+	//! Press '+' to increase the angular velocity while remaining in the same gear
 
       case '-':
         test->wn=test->wn-0.25;
         test->setangular=true;
         break;
+	//! Press '-' to decrease the angular velocity while remaining in the same gear
 
     default:
       if (test)
 	{
 	  test->keyboard(key);
 	}
+//! The default case. Why is this needed?
     }
   }
   
@@ -147,7 +150,8 @@ namespace cs251
     {
     case GLUT_ACTIVE_SHIFT:
       
-      //! Press left to pan left.
+      //! Press left to decrease the gear number if it is not already in the lowest gear.
+
     case GLUT_KEY_LEFT:
       /*settings.view_center.x -= 0.5f;
       resize_cb(width, height);*/
@@ -155,8 +159,9 @@ namespace cs251
         test->setangular = true;
  }
       break;
-      
-    //! Press right to pan right.
+      //! Press right to increase gear number if it is not already in the highest gear.
+
+
     case GLUT_KEY_RIGHT:
       /*settings.view_center.x += 0.5f;
       resize_cb(width, height);*/
@@ -290,7 +295,7 @@ namespace cs251
 	delete test;
 	entry = cs251::sim;
 	test = entry->create_fcn();
-	view_zoom = 1.0f;
+	view_zoom = 0.75f;
 	settings.view_center.Set(0.0f, 20.0f);
       resize_cb(width, height);
       }

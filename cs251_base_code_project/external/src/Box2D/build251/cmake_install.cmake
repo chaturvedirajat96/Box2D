@@ -1,4 +1,4 @@
-# Install script for directory: /home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D
+# Install script for directory: /home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Release")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/build251/Box2D/cmake_install.cmake")
+  include("/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/build251/Box2D/cmake_install.cmake")
 
 endif()
 
@@ -44,7 +44,7 @@ else()
   set(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 endif()
 
-file(WRITE "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/build251/${CMAKE_INSTALL_MANIFEST}" "")
-foreach(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  file(APPEND "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/build251/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
-endforeach()
+string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
+       "${CMAKE_INSTALL_MANIFEST_FILES}")
+file(WRITE "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/build251/${CMAKE_INSTALL_MANIFEST}"
+     "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,4 +1,4 @@
-# Install script for directory: /home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D
+# Install script for directory: /home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Release")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -33,97 +33,97 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Box2D" TYPE FILE FILES "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Box2D.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Box2D" TYPE FILE FILES "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Box2D.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Box2D/Collision" TYPE FILE FILES
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Collision/b2BroadPhase.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Collision/b2Collision.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Collision/b2Distance.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Collision/b2DynamicTree.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Collision/b2TimeOfImpact.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Collision/b2BroadPhase.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Collision/b2Collision.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Collision/b2Distance.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Collision/b2DynamicTree.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Collision/b2TimeOfImpact.h"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Box2D/Collision/Shapes" TYPE FILE FILES
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Collision/Shapes/b2CircleShape.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Collision/Shapes/b2EdgeShape.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Collision/Shapes/b2ChainShape.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Collision/Shapes/b2PolygonShape.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Collision/Shapes/b2Shape.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Collision/Shapes/b2CircleShape.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Collision/Shapes/b2EdgeShape.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Collision/Shapes/b2ChainShape.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Collision/Shapes/b2PolygonShape.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Collision/Shapes/b2Shape.h"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Box2D/Common" TYPE FILE FILES
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Common/b2BlockAllocator.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Common/b2Draw.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Common/b2GrowableStack.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Common/b2Math.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Common/b2Settings.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Common/b2StackAllocator.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Common/b2Timer.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Common/b2BlockAllocator.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Common/b2Draw.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Common/b2GrowableStack.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Common/b2Math.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Common/b2Settings.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Common/b2StackAllocator.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Common/b2Timer.h"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Box2D/Dynamics" TYPE FILE FILES
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/b2Body.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/b2ContactManager.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/b2Fixture.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/b2Island.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/b2TimeStep.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/b2World.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/b2WorldCallbacks.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/b2Body.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/b2ContactManager.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/b2Fixture.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/b2Island.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/b2TimeStep.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/b2World.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/b2WorldCallbacks.h"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Box2D/Dynamics/Contacts" TYPE FILE FILES
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Contacts/b2CircleContact.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Contacts/b2Contact.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Contacts/b2ContactSolver.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Contacts/b2EdgeAndCircleContact.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Contacts/b2EdgeAndPolygonContact.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Contacts/b2ChainAndCircleContact.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Contacts/b2ChainAndPolygonContact.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Contacts/b2PolygonContact.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Contacts/b2CircleContact.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Contacts/b2Contact.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Contacts/b2ContactSolver.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Contacts/b2EdgeAndCircleContact.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Contacts/b2EdgeAndPolygonContact.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Contacts/b2ChainAndCircleContact.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Contacts/b2ChainAndPolygonContact.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Contacts/b2PolygonContact.h"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Box2D/Dynamics/Joints" TYPE FILE FILES
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2DistanceJoint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2FrictionJoint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2GearJoint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2Joint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2MotorJoint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2MouseJoint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2PrismaticJoint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2PulleyJoint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2RevoluteJoint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2RopeJoint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2WeldJoint.h"
-    "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Dynamics/Joints/b2WheelJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2DistanceJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2FrictionJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2GearJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2Joint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2MotorJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2MouseJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2PrismaticJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2PulleyJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2RevoluteJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2RopeJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2WeldJoint.h"
+    "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Dynamics/Joints/b2WheelJoint.h"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Box2D/Rope" TYPE FILE FILES "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Rope/b2Rope.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Box2D/Rope" TYPE FILE FILES "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Rope/b2Rope.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/build251/Box2D/libBox2D.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/build251/Box2D/libBox2D.a")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/Box2D/Box2D-targets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/Box2D/Box2D-targets.cmake"
-         "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/build251/Box2D/CMakeFiles/Export/lib/Box2D/Box2D-targets.cmake")
+         "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/build251/Box2D/CMakeFiles/Export/lib/Box2D/Box2D-targets.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/Box2D/Box2D-targets-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -132,13 +132,13 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/Box2D" TYPE FILE FILES "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/build251/Box2D/CMakeFiles/Export/lib/Box2D/Box2D-targets.cmake")
-  if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/Box2D" TYPE FILE FILES "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/build251/Box2D/CMakeFiles/Export/lib/Box2D/Box2D-targets-noconfig.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/Box2D" TYPE FILE FILES "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/build251/Box2D/CMakeFiles/Export/lib/Box2D/Box2D-targets.cmake")
+  if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/Box2D" TYPE FILE FILES "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/build251/Box2D/CMakeFiles/Export/lib/Box2D/Box2D-targets-release.cmake")
   endif()
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/Box2D" TYPE FILE FILES "/home/naveenkenz12/Desktop/cs251_base_code/external/src/Box2D/Box2D/Box2DConfig.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/Box2D" TYPE FILE FILES "/home/naveenkenz12/Desktop/Box2D/cs251_base_code_project/external/src/Box2D/Box2D/Box2DConfig.cmake")
 endif()
 

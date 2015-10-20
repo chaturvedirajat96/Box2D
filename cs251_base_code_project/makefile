@@ -2,7 +2,7 @@
 
 # Programs
 SHELL 	= bash
-CC     	= g++
+CC     	= g++ -pg
 LD	= ld
 RM 	= rm
 ECHO	= /bin/echo
@@ -21,7 +21,7 @@ SRCDIR = $(PROJECT_ROOT)/src
 OBJDIR = $(PROJECT_ROOT)/obj
 BINDIR = $(PROJECT_ROOT)/bin
 DOCDIR = $(PROJECT_ROOT)/doc
-
+PROFDIR = $(PROJECT_ROOT)/profile
 # Library Paths
 BOX2D_ROOT=$(EXTERNAL_ROOT)
 GLUI_ROOT=/usr
@@ -31,7 +31,7 @@ GL_ROOT=/usr/include/
 LIBS = -lBox2D -lglui -lglut -lGLU -lGL
 
 # Compiler and Linker flags
-CPPFLAGS =-g -O3 -Wall -fno-strict-aliasing
+CPPFLAGS =-g -O2 -Wall -fno-strict-aliasing
 CPPFLAGS+=-I $(BOX2D_ROOT)/include -I $(GLUI_ROOT)/include
 LDFLAGS+=-L $(BOX2D_ROOT)/lib -L $(GLUI_ROOT)/lib
 
@@ -57,7 +57,7 @@ INCS := $(wildcard $(SRCDIR)/*.hpp)
 OBJS := $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 
-.PHONY: all setup doc clean distclean
+.PHONY: all setup doc clean distclean release report codeDoc profile
 
 all: setup $(BINDIR)/$(TARGET)
 
@@ -68,7 +68,7 @@ setup:
 
 $(BINDIR)/$(TARGET): $(OBJS)
 	@$(PRINTF) "$(MESG_COLOR)Building executable:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
-	@$(CC) -o $@ $(LDFLAGS) $(OBJS) $(LIBS) 2> temp.log || touch temp.err
+	@$(CC) -O2 -o $@ $(LDFLAGS) $(OBJS) $(LIBS) 2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \
@@ -90,16 +90,33 @@ $(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 	fi;
 	@$(RM) -f temp.log temp.err
 
-doc:
-	@$(ECHO) -n "Generating Doxygen Documentation ...  "
+codeDoc:
+	@$(ECHO) -n "Doxygen Documentation of Group 19... "
 	@$(RM) -rf doc/html
-	@$(DOXYGEN) $(DOCDIR)/Doxyfile 2 > /dev/null
+	@$(DOXYGEN) $(DOCDIR)/Doxyfile 2 > /dev/null 2>&1
 	@$(ECHO) "Done"
+
+report:ProjectReport.tex
+	@pdflatex $@.tex > /dev/null 2>&1
+
+profile:
+	@if [ ! -f "$(PROJECT_ROOT)/gmon.out" ] ; then \
+		$(ECHO) "gmon.out not present" ;\
+	fi
+	@if [ -f "$(PROJECT_ROOT)/gmon.out" ] ; then
+		mkdir -p profile
+		gprof $(PROJECT_ROOT)/bin/cs251_base > $(PROFDIR)/Analysis.txt ;\
+		python gprof2dot.py $(PROFDIR)/Analysis.txt > $(PROFDIR)/Analysis.dot ;\
+		dot -Tpng $(PROFDIR)/Analysis.dot  -o $(PROFDIR)/Callgraph.png ;\
+		$(ECHO) "Done" ;\
+	fi
 
 clean:
 	@$(ECHO) -n "Cleaning up..."
-	@$(RM) -rf $(OBJDIR) *~ $(DEPS) $(SRCDIR)/*~
+	@$(RM) $(OBJDIR)/* $(SRCDIR)/*~ $(BINDIR)/* $(PROFILE)/*
 	@$(ECHO) "Done"
 
 distclean: clean
-	@$(RM) -rf $(BINDIR) $(DOCDIR)/html
+	@$(RM) $(BINDIR) $(OBJDIR) $(DOCDIR)/html $(PROFILE)
+
+release:

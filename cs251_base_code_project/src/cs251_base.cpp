@@ -121,10 +121,13 @@ void base_sim_t::step(settings_t* settings)
     }
   
 //change
+//! whenever m_contacting becomes true i.e. the air particles collides with the walls of outlet it disappears from outlet and appears in the inlet
+
    if(m_contacting==true && bodyAAA->GetUserData() != NULL) {bodyAAA->SetTransform(b2Vec2(9,32),0); 
     bodyAAA->SetLinearVelocity(b2Vec2(-5,-2)); bodyAAA = NULL;}
    
-  
+  //! when left or right key is pressed and gear no is changed
+//! accordingly changes the position and angular velocity of gears.
  if(setangular == true)
  {
    if(gearno==1){pos=-12;w1=wn;w2=0;w3=0;w4=0;w5=0;}
